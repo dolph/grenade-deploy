@@ -24,6 +24,7 @@ fi
 # Configure rack client if it's not already
 if [ $# -eq 3 ]; then
     echo "Configuring the rack client..."
+    mkdir ~/.rack/
     echo "username = $1" > ~/.rack/config
     echo "api-key = $2" >> ~/.rack/config
     echo "region = $3" >> ~/.rack/config
