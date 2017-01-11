@@ -2,7 +2,7 @@
 set -ex
 
 apt-get update
-apt-get install curl
+apt-get install -y curl
 
 # Download the rack client if it's not already.
 if [ ! -f rack ]; then
