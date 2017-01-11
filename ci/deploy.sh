@@ -1,6 +1,21 @@
 #!/bin/bash
 set -ex
 
+# Drop the public key into place.
+mkdir -p ~/.ssh/
+touch ~/.ssh/id_rsa.pub
+chmod 0644 ~/.ssh/id_rsa.pub
+echo $1 > ~/.ssh/id_rsa.pub
+
+# This is really screwy, but something about the way Concourse CI handles line
+# breaks from YML files causes them to be replaced by spaces by the time we get
+# here, so we have to manually fix things up.
+touch ~/.ssh/id_rsa
+chmod 0600 ~/.ssh/id_rsa
+echo '-----BEGIN RSA PRIVATE KEY-----' > ~/.ssh/id_rsa
+echo $2 | tr " " "\n" >> ~/.ssh/id_rsa
+echo '-----END RSA PRIVATE KEY-----' >> ~/.ssh/id_rsa
+
 apt-get update
 apt-get install -y \
     curl \
@@ -25,12 +40,12 @@ if [ ! -f rack ]; then
 fi
 
 # Configure rack client if it's not already
-if [ $# -eq 3 ]; then
+if [ $# -eq 5 ]; then
     echo "Configuring the rack client..."
     mkdir ~/.rack/
-    echo "username = $1" > ~/.rack/config
-    echo "api-key = $2" >> ~/.rack/config
-    echo "region = $3" >> ~/.rack/config
+    echo "username = $3" > ~/.rack/config
+    echo "api-key = $4" >> ~/.rack/config
+    echo "region = $5" >> ~/.rack/config
 elif [ ! -f ~/.rack/config ]; then
     echo "Configuring the rack client (interactive)..."
     ./rack configure
@@ -44,7 +59,7 @@ echo "Provisioning server..."
     --name="grenade" \
     --image-name="Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)" \
     --flavor-name="8 GB Performance" \
-    --keypair="$USER" \
+    --keypair="ci" \
     --wait-for-completion;
 
 echo "Attempting to SSH into $IP..."

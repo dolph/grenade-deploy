@@ -29,6 +29,8 @@ jobs:
       run:
         path: repo/ci/deploy.sh
         args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
