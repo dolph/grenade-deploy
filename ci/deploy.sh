@@ -1,6 +1,9 @@
 #!/bin/bash
 set -ex
 
+apt-get update
+apt-get install curl
+
 # Download the rack client if it's not already.
 if [ ! -f rack ]; then
     echo "Downloading the rack client..."
