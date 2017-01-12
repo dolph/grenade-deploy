@@ -101,9 +101,6 @@ ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 # Disable heat.
 disable_service h-api h-api-cfn h-api-cw h-eng heat
 
-# Speed things up by tuning down screen sleep time.
-SCREEN_SLEEP=0.5
-
 # Switch to neutron.
 disable_service n-net
 enable_service q-agt q-dhcp q-l3 q-meta q-svc quantum
