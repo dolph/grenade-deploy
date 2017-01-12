@@ -38,7 +38,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - master
-- name: stable/newton
+- name: newton
   plan:
   - get: daily
     trigger: true
@@ -65,7 +65,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - stable/newton
-- name: stable/mitaka
+- name: mitaka
   plan:
   - get: daily
     trigger: true
