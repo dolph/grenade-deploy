@@ -11,7 +11,7 @@ resources:
   - interval: 12h
 
 jobs:
-- name: deploy
+- name: master
   plan:
   - get: daily
     trigger: true
@@ -37,3 +37,58 @@ jobs:
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
+        - master
+- name: stable/newton
+  plan:
+  - get: daily
+    trigger: true
+  - get: repo
+    trigger: true
+  - task: deploy
+    timeout: 3h
+    attempts: 3
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: ubuntu
+          tag: "latest"
+      inputs:
+      - name: repo
+      run:
+        path: repo/ci/deploy.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - stable/newton
+- name: stable/mitaka
+  plan:
+  - get: daily
+    trigger: true
+  - get: repo
+    trigger: true
+  - task: deploy
+    timeout: 3h
+    attempts: 3
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: ubuntu
+          tag: "latest"
+      inputs:
+      - name: repo
+      run:
+        path: repo/ci/deploy.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - stable/mitaka
