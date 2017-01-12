@@ -86,5 +86,5 @@ ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'sudo -H -u stack cat <<EOT >> /opt/stack/grenade/devstack.localrc
 # Additional devstack configuration goes here.
 EOT'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack/grenade; sudo -H -u stack get checkout stable/newton'
+ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack/grenade; sudo -H -u stack git checkout stable/newton'
 ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack/grenade; sudo -H -u stack ./grenade.sh'
