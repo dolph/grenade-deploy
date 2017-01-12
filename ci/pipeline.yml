@@ -18,6 +18,7 @@ jobs:
   - get: repo
     trigger: true
   - task: deploy
+    attempts: 10
     config:
       platform: linux
       image_resource:
