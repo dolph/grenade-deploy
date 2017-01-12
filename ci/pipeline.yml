@@ -34,10 +34,10 @@ jobs:
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
+        - master
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
-        - master
 - name: newton
   plan:
   - get: daily
@@ -61,10 +61,10 @@ jobs:
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
+        - stable/newton
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
-        - stable/newton
 - name: mitaka
   plan:
   - get: daily
@@ -88,7 +88,7 @@ jobs:
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
+        - stable/mitaka
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
-        - stable/mitaka

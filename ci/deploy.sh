@@ -44,12 +44,12 @@ if [ ! -f rack ]; then
 fi
 
 # Configure rack client if it's not already
-if [ $# -eq 5 ]; then
+if [ $# -eq 6 ]; then
     echo "Configuring the rack client..."
     mkdir ~/.rack/
-    echo "username = $3" > ~/.rack/config
-    echo "api-key = $4" >> ~/.rack/config
-    echo "region = $5" >> ~/.rack/config
+    echo "username = $4" > ~/.rack/config
+    echo "api-key = $5" >> ~/.rack/config
+    echo "region = $6" >> ~/.rack/config
 elif [ ! -f ~/.rack/config ]; then
     echo "Configuring the rack client (interactive)..."
     ./rack configure
@@ -93,5 +93,5 @@ ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'sudo -H -u stack cat <<EOT >> /opt/stack/grenade/devstack.localrc
 # Additional devstack configuration goes here.
 EOT'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP "cd /opt/stack/grenade; sudo -H -u stack git checkout $6"
+ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP "cd /opt/stack/grenade; sudo -H -u stack git checkout $3"
 ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack/grenade; sudo -H -u stack ./grenade.sh'
