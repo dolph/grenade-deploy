@@ -1,11 +1,18 @@
 #!/bin/bash
 set -ex
 
+SSH_PUBLIC_KEY=$1
+SSH_PRIVATE_KEY_BODY=$2
+GRENADE_BRANCH=$3
+RACK_USERNAME=$4
+RACK_API_KEY=$5
+RACK_REGION=$6
+
 # Drop the public key into place.
 mkdir -p ~/.ssh/
 touch ~/.ssh/id_rsa.pub
 chmod 0644 ~/.ssh/id_rsa.pub
-echo $1 > ~/.ssh/id_rsa.pub
+echo $SSH_PUBLIC_KEY > ~/.ssh/id_rsa.pub
 
 # This is really screwy, but something about the way Concourse CI handles line
 # breaks from YML files causes them to be replaced by spaces by the time we get
@@ -13,7 +20,7 @@ echo $1 > ~/.ssh/id_rsa.pub
 touch ~/.ssh/id_rsa
 chmod 0600 ~/.ssh/id_rsa
 echo '-----BEGIN RSA PRIVATE KEY-----' > ~/.ssh/id_rsa
-echo $2 | tr " " "\n" >> ~/.ssh/id_rsa
+echo $SSH_PRIVATE_KEY_BODY | tr " " "\n" >> ~/.ssh/id_rsa
 echo '-----END RSA PRIVATE KEY-----' >> ~/.ssh/id_rsa
 
 ls -la ~/.ssh/
@@ -47,9 +54,9 @@ fi
 if [ $# -eq 6 ]; then
     echo "Configuring the rack client..."
     mkdir ~/.rack/
-    echo "username = $4" > ~/.rack/config
-    echo "api-key = $5" >> ~/.rack/config
-    echo "region = $6" >> ~/.rack/config
+    echo "username = $RACK_USERNAME" > ~/.rack/config
+    echo "api-key = $RACK_API_KEY" >> ~/.rack/config
+    echo "region = $RACK_REGION" >> ~/.rack/config
 elif [ ! -f ~/.rack/config ]; then
     echo "Configuring the rack client (interactive)..."
     ./rack configure
@@ -93,5 +100,5 @@ ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'sudo -H -u stack cat <<EOT >> /opt/stack/grenade/devstack.localrc
 # Additional devstack configuration goes here.
 EOT'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP "cd /opt/stack/grenade; sudo -H -u stack git checkout $3"
+ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP "cd /opt/stack/grenade; sudo -H -u stack git checkout $GRENADE_BRANCH"
 ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack/grenade; sudo -H -u stack ./grenade.sh'
