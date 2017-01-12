@@ -18,6 +18,7 @@ jobs:
   - get: repo
     trigger: true
   - task: deploy
+    timeout: 3h
     attempts: 3
     config:
       platform: linux
