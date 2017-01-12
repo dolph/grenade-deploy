@@ -56,7 +56,7 @@ elif [ ! -f ~/.rack/config ]; then
 fi
 
 INSTANCE_NUMBER=`shuf -i 100000-999999 -n 1`
-INSTANCE_NAME="grenade-$INSTANCE_NAME"
+INSTANCE_NAME="grenade-$INSTANCE_NUMBER"
 
 # Always cleanup instances when the script exits.
 function cleanup {
