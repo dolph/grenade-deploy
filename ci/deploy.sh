@@ -61,7 +61,7 @@ echo "Deleting existing grenade server (if one exists)..."
 echo "Provisioning server..."
 ./rack servers instance create \
     --name="grenade" \
-    --image-name="Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)" \
+    --image-name="Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)" \
     --flavor-name="8 GB Performance" \
     --keypair="ci" \
     --wait-for-completion;
