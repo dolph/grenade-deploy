@@ -82,12 +82,8 @@ ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
 ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'mkdir -p /opt/stack/'
 ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'chown stack:stack /opt/stack/'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack; sudo -H -u stack git clone https://git.openstack.org/openstack-dev/devstack'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'sudo -H -u stack cat <<EOT >> /opt/stack/devstack/local.conf
-[[local|localrc]]
-ADMIN_PASSWORD=secret
-DATABASE_PASSWORD=secret
-RABBIT_PASSWORD=secret
-SERVICE_PASSWORD=secret
+ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack; sudo -H -u stack git clone https://git.openstack.org/openstack-dev/grenade'
+ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'sudo -H -u stack cat <<EOT >> /opt/stack/grenade/devstack.localrc
+# Additional devstack configuration goes here.
 EOT'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack/devstack; sudo -H -u stack ./stack.sh'
+ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack/grenade; sudo -H -u stack ./grenade.sh'
