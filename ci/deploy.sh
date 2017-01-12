@@ -55,12 +55,19 @@ elif [ ! -f ~/.rack/config ]; then
     ./rack configure
 fi
 
-echo "Deleting existing grenade server (if one exists)..."
-./rack servers instance delete --name="grenade" || true
+INSTANCE_NUMBER=`shuf -i 100000-999999 -n 1`
+INSTANCE_NAME="grenade-$INSTANCE_NAME"
+
+# Always cleanup instances when the script exits.
+function cleanup {
+    echo "Deleting existing grenade server (if one exists)..."
+    ./rack servers instance delete --name="$INSTANCE_NAME" || true
+}
+trap cleanup EXIT
 
 echo "Provisioning server..."
 ./rack servers instance create \
-    --name="grenade" \
+    --name="$INSTANCE_NAME" \
     --image-name="Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)" \
     --flavor-name="8 GB Performance" \
     --keypair="ci" \
@@ -68,7 +75,7 @@ echo "Provisioning server..."
 
 echo "Attempting to SSH into $IP..."
 while true; do
-    IP=`./rack servers instance list --name="grenade" --fields=publicipv4 --status=ACTIVE | sed -n 2p`
+    IP=`./rack servers instance list --name="$INSTANCE_NAME" --fields=publicipv4 --status=ACTIVE | sed -n 2p`
     if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'whoami'; then
         break
     fi
