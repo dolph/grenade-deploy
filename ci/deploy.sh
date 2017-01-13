@@ -89,29 +89,9 @@ while true; do
     sleep 1.0
 done
 
-echo "Bootstrapping devstack @ $IP..."
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'apt-get update'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'apt-get install -y git'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'adduser --disabled-password --gecos "" stack'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'mkdir -p /opt/stack/'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'chown stack:stack /opt/stack/'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack; sudo -H -u stack git clone https://git.openstack.org/openstack-dev/grenade'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'sudo -H -u stack cat <<EOT >> /opt/stack/grenade/devstack.localrc
-# Disable heat.
-disable_service h-api h-api-cfn h-api-cw h-eng heat
-
-# Switch to neutron.
-disable_service n-net
-enable_service q-agt q-dhcp q-l3 q-meta q-svc quantum
-
-Q_USE_DEBUG_COMMAND=True
-NETWORK_GATEWAY=192.168.0.1
-FIXED_RANGE=192.168.0.0/20
-FLOATING_RANGE=172.24.5.0/24
-PUBLIC_NETWORK_GATEWAY=172.24.5.1
-
-USE_SCREEN=False
-EOT'
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP "cd /opt/stack/grenade; sudo -H -u stack git checkout $GRENADE_BRANCH"
-ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'cd /opt/stack/grenade; sudo -H -u stack ./grenade.sh'
+echo "Running grenade @ $IP..."
+ssh \
+    -o BatchMode=yes \
+    -o UserKnownHostsFile=/dev/null \
+    -o StrictHostKeyChecking=no \
+    root@$IP 'bash -s' < ./../install.sh "$GRENADE_BRANCH"
