@@ -28,3 +28,4 @@ USE_SCREEN=False
 EOT
 cd /opt/stack/grenade; sudo -H -u stack git checkout $GRENADE_BRANCH
 cd /opt/stack/grenade; sudo -H -u stack ./grenade.sh
+cd /opt/stack/grenade; sudo -H -u stack ./clean.sh
