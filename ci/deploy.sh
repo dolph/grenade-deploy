@@ -8,6 +8,8 @@ RACK_USERNAME=$4
 RACK_API_KEY=$5
 RACK_REGION=$6
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # Drop the public key into place.
 mkdir -p ~/.ssh/
 touch ~/.ssh/id_rsa.pub
@@ -94,4 +96,4 @@ ssh \
     -o BatchMode=yes \
     -o UserKnownHostsFile=/dev/null \
     -o StrictHostKeyChecking=no \
-    root@$IP 'bash -s' < ./../install.sh "$GRENADE_BRANCH"
+    root@$IP 'bash -s' < $DIR/../install.sh "$GRENADE_BRANCH"
