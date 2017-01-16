@@ -95,6 +95,3 @@ ssh \
     -o UserKnownHostsFile=/dev/null \
     -o StrictHostKeyChecking=no \
     root@$IP 'bash -s' < $DIR/../install.sh "$GRENADE_BRANCH"
-
-echo "Shutting down..."
-shutdown -h now
