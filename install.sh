@@ -38,5 +38,5 @@ EOT
 cd /opt/stack/grenade;
 
 sudo -H -u stack git checkout $GRENADE_BRANCH
-sudo -H -u stack . grenade.sh
+sudo -H -u stack sh grenade.sh
 exit 0
