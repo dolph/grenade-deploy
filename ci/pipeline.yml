@@ -8,7 +8,7 @@ resources:
 - name: daily
   type: time
   source:
-  - interval: 12h
+  - interval: 24h
 
 jobs:
 - name: master
