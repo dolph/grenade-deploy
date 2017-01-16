@@ -3,6 +3,11 @@ set -ex
 
 GRENADE_BRANCH=$1
 
+function cleanup {
+    shutdown -h now
+}
+trap cleanup EXIT
+
 apt-get update
 apt-get install -y git
 adduser --disabled-password --gecos "" stack
@@ -33,5 +38,5 @@ EOT
 cd /opt/stack/grenade;
 
 sudo -H -u stack git checkout $GRENADE_BRANCH
-sudo -H -u stack ./grenade.sh
-shutdown -h now
+sudo -H -u stack . grenade.sh
+exit 0
