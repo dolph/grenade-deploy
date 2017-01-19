@@ -17,7 +17,7 @@ chown stack:stack /opt/stack/
 
 cd /opt/stack;
 sudo -H -u stack git clone https://git.openstack.org/openstack-dev/devstack
-sudo -H -u stack cat <<EOT >> /opt/stack/grenade/devstack.localrc
+sudo -H -u stack cat <<EOT >> /opt/stack/devstack/devstack.localrc
 # Disable heat.
 disable_service h-api h-api-cfn h-api-cw h-eng heat
 
