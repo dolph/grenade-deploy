@@ -3,13 +3,21 @@ set -ex
 
 GRENADE_BRANCH=$1
 
+function cleanup {
+    shutdown -h now
+}
+trap cleanup EXIT
+
 apt-get update
 apt-get install -y git
 adduser --disabled-password --gecos "" stack
 echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 mkdir -p /opt/stack/
 chown stack:stack /opt/stack/
-cd /opt/stack; sudo -H -u stack git clone https://git.openstack.org/openstack-dev/grenade
+
+cd /opt/stack;
+
+sudo -H -u stack git clone https://git.openstack.org/openstack-dev/grenade
 sudo -H -u stack cat <<EOT >> /opt/stack/grenade/devstack.localrc
 # Disable heat.
 disable_service h-api h-api-cfn h-api-cw h-eng heat
@@ -26,6 +34,9 @@ PUBLIC_NETWORK_GATEWAY=172.24.5.1
 
 USE_SCREEN=False
 EOT
-cd /opt/stack/grenade; sudo -H -u stack git checkout $GRENADE_BRANCH
-cd /opt/stack/grenade; sudo -H -u stack ./grenade.sh
-cd /opt/stack/grenade; sudo -H -u stack ./clean.sh
+
+cd /opt/stack/grenade;
+
+sudo -H -u stack git checkout $GRENADE_BRANCH
+sudo -H -u stack bash grenade.sh
+exit 0

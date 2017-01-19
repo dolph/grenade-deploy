@@ -65,7 +65,7 @@ INSTANCE_NAME="grenade-$INSTANCE_NUMBER"
 
 # Always cleanup instances when the script exits.
 function cleanup {
-    echo "Deleting existing grenade server (if one exists)..."
+    echo "Deleting grenade server (if one exists)..."
     ./rack servers instance delete --name="$INSTANCE_NAME" || true
 }
 trap cleanup EXIT

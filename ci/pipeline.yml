@@ -13,7 +13,7 @@ resources:
 - name: daily
   type: time
   source:
-  - interval: 12h
+  - interval: 24h
 
 jobs:
 - name: master
@@ -23,7 +23,7 @@ jobs:
   - get: grenade-deploy
     trigger: true
   - task: deploy
-    timeout: 3h
+    timeout: 2h
     attempts: 3
     config:
       platform: linux
@@ -49,7 +49,7 @@ jobs:
   - get: grenade-deploy
     trigger: true
   - task: deploy
-    timeout: 3h
+    timeout: 2h
     attempts: 3
     config:
       platform: linux
@@ -75,7 +75,7 @@ jobs:
   - get: grenade-deploy
     trigger: true
   - task: deploy
-    timeout: 3h
+    timeout: 2h
     attempts: 3
     config:
       platform: linux
