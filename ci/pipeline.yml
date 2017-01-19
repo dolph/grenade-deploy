@@ -5,6 +5,11 @@ resources:
   source:
     uri: https://github.com/dolph/grenade-deploy.git
     branch: master
+- name: devstack-lxc
+  type: git
+  source:
+    uri: https://github.com/osic/devstack-lxc.git
+    branch: master
 - name: daily
   type: time
   source:
