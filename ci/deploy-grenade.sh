@@ -14,8 +14,7 @@ bash $DIR/bootstrap-common.sh
 bash $DIR/bootstrap-ssh.sh "$SSH_PUBLIC_KEY" "$SSH_PRIVATE_KEY_BODY"
 bash $DIR/bootstrap-rack.sh "$RACK_USERNAME" "$RACK_API_KEY" "$RACK_REGION"
 
-INSTANCE_NUMBER=`shuf -i 100000-999999 -n 1`
-INSTANCE_NAME="grenade-$INSTANCE_NUMBER"
+INSTANCE_NAME="ci-grenade-`shuf -i 100000-999999 -n 1`"
 
 # Always cleanup instances when the script exits.
 function cleanup {
