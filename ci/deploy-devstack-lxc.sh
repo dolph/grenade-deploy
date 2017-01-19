@@ -64,7 +64,7 @@ INSTANCE_NAME="devstack-lxc-$INSTANCE_NUMBER"
 
 # Always cleanup instances when the script exits.
 function cleanup {
-    echo "Deleting existing grenade server (if one exists)..."
+    echo "Deleting existing server (if one exists)..."
     ./rack servers instance delete --name="$INSTANCE_NAME" || true
 }
 trap cleanup EXIT
