@@ -10,8 +10,8 @@ RACK_REGION=$5
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 bash $DIR/bootstrap-common.sh
-bash $DIR/bootstrap-ssh.sh $SSH_PUBLIC_KEY $SSH_PRIVATE_KEY_BODY
-bash $DIR/bootstrap-rack.sh $RACK_USERNAME $RACK_API_KEY $RACK_REGION
+bash $DIR/bootstrap-ssh.sh "$SSH_PUBLIC_KEY" "$SSH_PRIVATE_KEY_BODY"
+bash $DIR/bootstrap-rack.sh "$RACK_USERNAME" "$RACK_API_KEY" "$RACK_REGION"
 
 INSTANCE_NUMBER=`shuf -i 100000-999999 -n 1`
 INSTANCE_NAME="devstack-lxc-$INSTANCE_NUMBER"
