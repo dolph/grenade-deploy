@@ -3,6 +3,8 @@ set -ex
 
 GRENADE_BRANCH=$1
 
+PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
+
 function cleanup {
     shutdown -h now
 }
@@ -18,6 +20,12 @@ chown stack:stack /opt/stack/
 cd /opt/stack;
 sudo -H -u stack git clone https://git.openstack.org/openstack-dev/devstack
 sudo -H -u stack cat <<EOT >> /opt/stack/devstack/devstack.localrc
+[[local|localrc]]
+ADMIN_PASSWORD=$PASSWORD
+DATABASE_PASSWORD=$PASSWORD
+RABBIT_PASSWORD=$PASSWORD
+SERVICE_PASSWORD=$PASSWORD
+
 # Disable heat.
 disable_service h-api h-api-cfn h-api-cw h-eng heat
 
