@@ -102,7 +102,7 @@ jobs:
   - get: grenade-deploy
     trigger: false
   - get: devstack
-    trigger: true
+    trigger: false
   - task: deploy
     timeout: 3h
     attempts: 1
