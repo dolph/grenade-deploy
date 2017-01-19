@@ -1,9 +1,9 @@
 ---
 resources:
-- name: grenade-deploy
+- name: pineapple
   type: git
   source:
-    uri: https://github.com/dolph/grenade-deploy.git
+    uri: https://github.com/dolph/pineapple.git
     branch: master
 - name: devstack-lxc
   type: git
@@ -20,7 +20,7 @@ jobs:
   plan:
   - get: daily
     trigger: true
-  - get: grenade-deploy
+  - get: pineapple
     trigger: false
   - task: deploy
     timeout: 2h
@@ -32,9 +32,9 @@ jobs:
         source:
           repository: phusion/baseimage
       inputs:
-      - name: grenade-deploy
+      - name: pineapple
       run:
-        path: grenade-deploy/ci/deploy-grenade.sh
+        path: pineapple/ci/deploy-grenade.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
@@ -46,7 +46,7 @@ jobs:
   plan:
   - get: daily
     trigger: false
-  - get: grenade-deploy
+  - get: pineapple
     trigger: false
   - task: deploy
     timeout: 2h
@@ -58,9 +58,9 @@ jobs:
         source:
           repository: phusion/baseimage
       inputs:
-      - name: grenade-deploy
+      - name: pineapple
       run:
-        path: grenade-deploy/ci/deploy-grenade.sh
+        path: pineapple/ci/deploy-grenade.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
@@ -72,7 +72,7 @@ jobs:
   plan:
   - get: daily
     trigger: false
-  - get: grenade-deploy
+  - get: pineapple
     trigger: false
   - task: deploy
     timeout: 2h
@@ -84,9 +84,9 @@ jobs:
         source:
           repository: phusion/baseimage
       inputs:
-      - name: grenade-deploy
+      - name: pineapple
       run:
-        path: grenade-deploy/ci/deploy-grenade.sh
+        path: pineapple/ci/deploy-grenade.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
@@ -99,7 +99,7 @@ jobs:
   plan:
   - get: daily
     trigger: true
-  - get: grenade-deploy
+  - get: pineapple
     trigger: false
   - task: deploy
     timeout: 3h
@@ -111,9 +111,9 @@ jobs:
         source:
           repository: phusion/baseimage
       inputs:
-      - name: grenade-deploy
+      - name: pineapple
       run:
-        path: grenade-deploy/ci/deploy-devstack.sh
+        path: pineapple/ci/deploy-devstack.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
@@ -124,7 +124,7 @@ jobs:
   plan:
   - get: daily
     trigger: true
-  - get: grenade-deploy
+  - get: pineapple
     trigger: true
   - get: devstack-lxc
     trigger: true
@@ -138,9 +138,9 @@ jobs:
         source:
           repository: phusion/baseimage
       inputs:
-      - name: grenade-deploy
+      - name: pineapple
       run:
-        path: grenade-deploy/ci/deploy-devstack-lxc.sh
+        path: pineapple/ci/deploy-devstack-lxc.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
