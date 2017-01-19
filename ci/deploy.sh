@@ -25,8 +25,6 @@ echo '-----BEGIN RSA PRIVATE KEY-----' > ~/.ssh/id_rsa
 echo $SSH_PRIVATE_KEY_BODY | tr " " "\n" >> ~/.ssh/id_rsa
 echo '-----END RSA PRIVATE KEY-----' >> ~/.ssh/id_rsa
 
-ls -la ~/.ssh/
-
 apt-get update
 apt-get install -y \
     curl \
