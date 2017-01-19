@@ -19,7 +19,7 @@ chown stack:stack /opt/stack/
 
 cd /opt/stack;
 sudo -H -u stack git clone https://git.openstack.org/openstack-dev/devstack
-sudo -H -u stack cat <<EOT >> /opt/stack/devstack/devstack.localrc
+sudo -H -u stack cat <<EOT >> /opt/stack/devstack/local.conf
 [[local|localrc]]
 ADMIN_PASSWORD=$PASSWORD
 DATABASE_PASSWORD=$PASSWORD
