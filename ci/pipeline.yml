@@ -34,7 +34,7 @@ jobs:
       inputs:
       - name: grenade-deploy
       run:
-        path: grenade-deploy/ci/deploy.sh
+        path: grenade-deploy/ci/deploy-grenade.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
@@ -60,7 +60,7 @@ jobs:
       inputs:
       - name: grenade-deploy
       run:
-        path: grenade-deploy/ci/deploy.sh
+        path: grenade-deploy/ci/deploy-grenade.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
@@ -86,7 +86,7 @@ jobs:
       inputs:
       - name: grenade-deploy
       run:
-        path: grenade-deploy/ci/deploy.sh
+        path: grenade-deploy/ci/deploy-grenade.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
