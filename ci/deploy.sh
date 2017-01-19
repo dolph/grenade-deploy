@@ -10,55 +10,9 @@ RACK_REGION=$6
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Drop the public key into place.
-mkdir -p ~/.ssh/
-touch ~/.ssh/id_rsa.pub
-chmod 0644 ~/.ssh/id_rsa.pub
-echo $SSH_PUBLIC_KEY > ~/.ssh/id_rsa.pub
-
-# This is really screwy, but something about the way Concourse CI handles line
-# breaks from YML files causes them to be replaced by spaces by the time we get
-# here, so we have to manually fix things up.
-touch ~/.ssh/id_rsa
-chmod 0600 ~/.ssh/id_rsa
-echo '-----BEGIN RSA PRIVATE KEY-----' > ~/.ssh/id_rsa
-echo $SSH_PRIVATE_KEY_BODY | tr " " "\n" >> ~/.ssh/id_rsa
-echo '-----END RSA PRIVATE KEY-----' >> ~/.ssh/id_rsa
-
-apt-get update
-apt-get install -y \
-    curl \
-    ssh \
-    ;
-
-# Download the rack client if it's not already.
-if [ ! -f rack ]; then
-    echo "Downloading the rack client..."
-    case "$(uname -s)" in
-    Linux)
-        # Linux 64-bit binary
-        curl https://ec4a542dbf90c03b9f75-b342aba65414ad802720b41e8159cf45.ssl.cf5.rackcdn.com/1.2/Linux/amd64/rack > rack
-        ;;
-    Darwin)
-        # OS X 64-bit binary
-        curl https://ec4a542dbf90c03b9f75-b342aba65414ad802720b41e8159cf45.ssl.cf5.rackcdn.com/1.2/Darwin/amd64/rack > rack
-        ;;
-    esac
-
-    chmod +x rack
-fi
-
-# Configure rack client if it's not already
-if [ $# -eq 6 ]; then
-    echo "Configuring the rack client..."
-    mkdir ~/.rack/
-    echo "username = $RACK_USERNAME" > ~/.rack/config
-    echo "api-key = $RACK_API_KEY" >> ~/.rack/config
-    echo "region = $RACK_REGION" >> ~/.rack/config
-elif [ ! -f ~/.rack/config ]; then
-    echo "Configuring the rack client (interactive)..."
-    ./rack configure
-fi
+bash $DIR/bootstrap-common.sh
+bash $DIR/bootstrap-ssh.sh $SSH_PUBLIC_KEY $SSH_PRIVATE_KEY_BODY
+bash $DIR/bootstrap-rack.sh $RACK_USERNAME $RACK_API_KEY $RACK_REGION
 
 INSTANCE_NUMBER=`shuf -i 100000-999999 -n 1`
 INSTANCE_NAME="grenade-$INSTANCE_NUMBER"
