@@ -16,7 +16,7 @@ resources:
   - interval: 24h
 
 jobs:
-- name: master
+- name: grenade-master
   plan:
   - get: daily
     trigger: true
@@ -42,7 +42,7 @@ jobs:
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
-- name: newton
+- name: grenade-newton
   plan:
   - get: daily
     trigger: false
@@ -68,7 +68,7 @@ jobs:
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
-- name: ocata
+- name: grenade-ocata
   plan:
   - get: daily
     trigger: false
@@ -94,7 +94,35 @@ jobs:
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
-- name: run-devstack-lxc
+- name: devstack
+  serial: true
+  plan:
+  - get: daily
+    trigger: true
+  - get: grenade-deploy
+    trigger: false
+  - get: devstack
+    trigger: true
+  - task: deploy
+    timeout: 3h
+    attempts: 1
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: phusion/baseimage
+      inputs:
+      - name: grenade-deploy
+      run:
+        path: grenade-deploy/ci/deploy-devstack.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+- name: devstack-lxc
   plan:
   - get: daily
     trigger: true
