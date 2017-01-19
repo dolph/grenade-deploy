@@ -5,7 +5,10 @@ GRENADE_BRANCH=$1
 
 PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
 
-apt-get update
+for i in `seq 1 10`;
+do
+    apt-get update && break || sleep 15
+done
 apt-get install -y git
 adduser --disabled-password --gecos "" stack
 echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
