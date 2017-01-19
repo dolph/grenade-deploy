@@ -1,6 +1,6 @@
 ---
 resources:
-- name: repo
+- name: grenade-deploy
   type: git
   source:
     uri: https://github.com/dolph/grenade-deploy.git
@@ -15,7 +15,7 @@ jobs:
   plan:
   - get: daily
     trigger: true
-  - get: repo
+  - get: grenade-deploy
     trigger: true
   - task: deploy
     timeout: 3h
@@ -27,9 +27,9 @@ jobs:
         source:
           repository: phusion/baseimage
       inputs:
-      - name: repo
+      - name: grenade-deploy
       run:
-        path: repo/ci/deploy.sh
+        path: grenade-deploy/ci/deploy.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
@@ -41,7 +41,7 @@ jobs:
   plan:
   - get: daily
     trigger: true
-  - get: repo
+  - get: grenade-deploy
     trigger: true
   - task: deploy
     timeout: 3h
@@ -53,9 +53,9 @@ jobs:
         source:
           repository: phusion/baseimage
       inputs:
-      - name: repo
+      - name: grenade-deploy
       run:
-        path: repo/ci/deploy.sh
+        path: grenade-deploy/ci/deploy.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
@@ -67,7 +67,7 @@ jobs:
   plan:
   - get: daily
     trigger: true
-  - get: repo
+  - get: grenade-deploy
     trigger: true
   - task: deploy
     timeout: 3h
@@ -79,9 +79,9 @@ jobs:
         source:
           repository: phusion/baseimage
       inputs:
-      - name: repo
+      - name: grenade-deploy
       run:
-        path: repo/ci/deploy.sh
+        path: grenade-deploy/ci/deploy.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
