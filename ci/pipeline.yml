@@ -21,7 +21,7 @@ jobs:
   - get: daily
     trigger: true
   - get: grenade-deploy
-    trigger: true
+    trigger: false
   - task: deploy
     timeout: 2h
     attempts: 3
@@ -45,9 +45,9 @@ jobs:
 - name: newton
   plan:
   - get: daily
-    trigger: true
+    trigger: false
   - get: grenade-deploy
-    trigger: true
+    trigger: false
   - task: deploy
     timeout: 2h
     attempts: 3
@@ -71,9 +71,9 @@ jobs:
 - name: ocata
   plan:
   - get: daily
-    trigger: true
+    trigger: false
   - get: grenade-deploy
-    trigger: true
+    trigger: false
   - task: deploy
     timeout: 2h
     attempts: 3
