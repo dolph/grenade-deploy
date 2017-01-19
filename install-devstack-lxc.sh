@@ -5,7 +5,7 @@ for i in `seq 1 10`;
 do
     apt-get update && break || sleep 15
 done
-apt-get install -y git
+apt-get install -y git python-tox
 adduser --disabled-password --gecos "" stack
 echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
