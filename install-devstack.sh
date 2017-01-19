@@ -5,11 +5,6 @@ GRENADE_BRANCH=$1
 
 PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
 
-function cleanup {
-    shutdown -h now
-}
-trap cleanup EXIT
-
 apt-get update
 apt-get install -y git
 adduser --disabled-password --gecos "" stack
