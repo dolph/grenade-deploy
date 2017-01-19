@@ -45,4 +45,4 @@ ssh \
     -o BatchMode=yes \
     -o UserKnownHostsFile=/dev/null \
     -o StrictHostKeyChecking=no \
-    root@$IP 'bash -s' < $DIR/../install.sh "$GRENADE_BRANCH"
+    root@$IP 'bash -s' < $DIR/../install-grenade.sh "$GRENADE_BRANCH"
