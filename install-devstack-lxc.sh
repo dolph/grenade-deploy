@@ -17,6 +17,7 @@ sudo -H -u stack sudo ./install-multinode.sh
 # Smoke test
 apt-get install -y \
     build-essential \
+    libssl-dev \
     libxml2-dev \
     libxslt-dev \
     python3-dev \
