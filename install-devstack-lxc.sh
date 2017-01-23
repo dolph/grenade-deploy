@@ -17,10 +17,10 @@ sudo -H -u stack sudo ./install-multinode.sh
 # Smoke test
 apt-get install -y \
     build-essential \
-    python3-dev \
-    tox \
     libxml2-dev \
     libxslt-dev \
+    python3-dev \
+    tox \
     ;
 cd /home/stack
 sudo -H -u stack git clone https://github.com/openstack/tempest.git
