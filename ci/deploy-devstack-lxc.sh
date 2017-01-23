@@ -34,7 +34,7 @@ echo "Provisioning server..."
 echo "Attempting to SSH into instance..."
 while true; do
     PUBLIC_IP=`./rack servers instance list --name="$INSTANCE_NAME" --fields=publicipv4 --status=ACTIVE | sed -n 2p`
-    if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'whoami'; then
+    if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$PUBLIC_IP 'whoami'; then
         break
     fi
     sleep 1.0
