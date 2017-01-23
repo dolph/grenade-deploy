@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ex
 
+HOST_IP=$1
+
 for i in `seq 1 10`;
 do
     apt-get update && break || sleep 15
@@ -35,6 +37,10 @@ admin_username = admin
 admin_project_name = admin
 admin_domain_name = Default
 admin_password = admin
+
+[identity]
+auth_version = v2
+uri = http://$HOST_IP:35357/v2.0/
 EOT
 tox -esmoke
 

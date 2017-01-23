@@ -45,4 +45,4 @@ ssh \
     -o BatchMode=yes \
     -o UserKnownHostsFile=/dev/null \
     -o StrictHostKeyChecking=no \
-    root@$IP 'bash -s' < $DIR/../install-devstack-lxc.sh
+    root@$IP 'bash -s' < $DIR/../install-devstack-lxc.sh "$IP"
