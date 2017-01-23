@@ -39,8 +39,8 @@ admin_domain_name = Default
 admin_password = admin
 
 [identity]
-auth_version = v2
-uri = http://$HOST_IP:35357/v2.0/
+auth_version = v3
+uri = http://$HOST_IP:35357/v3/
 EOT
 tox -esmoke
 
