@@ -15,7 +15,7 @@ cd /home/stack/devstack-lxc
 sudo -H -u stack sudo ./install-multinode.sh
 
 # Smoke test
-apt-get install -y build-essential python-dev python-tox libxml2-dev libxslt-dev
+apt-get install -y build-essential python3-dev python-tox libxml2-dev libxslt-dev
 cd /home/stack
 sudo -H -u stack git clone https://github.com/openstack/tempest.git
 cd /home/stack/tempest
