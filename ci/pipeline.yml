@@ -17,6 +17,8 @@ resources:
 
 jobs:
 - name: grenade-master
+  build_logs_to_retain: 3
+  max_in_flight: 3
   plan:
   - get: daily
     trigger: true
@@ -43,6 +45,8 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
 - name: grenade-newton
+  build_logs_to_retain: 3
+  max_in_flight: 3
   plan:
   - get: daily
     trigger: false
@@ -69,6 +73,8 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
 - name: grenade-ocata
+  build_logs_to_retain: 3
+  max_in_flight: 3
   plan:
   - get: daily
     trigger: false
@@ -96,6 +102,8 @@ jobs:
         - {{rack_region}}
 - name: devstack
   serial: true
+  build_logs_to_retain: 3
+  max_in_flight: 1
   plan:
   - get: daily
     trigger: true
@@ -121,6 +129,8 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
 - name: devstack-lxc
+  build_logs_to_retain: 3
+  max_in_flight: 3
   plan:
   - get: daily
     trigger: true
