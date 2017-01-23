@@ -26,6 +26,16 @@ apt-get install -y \
 cd /home/stack
 sudo -H -u stack git clone https://github.com/openstack/tempest.git
 cd /home/stack/tempest
+sudo -H -u stack cat <<EOT >> /home/stack/tempest/etc/tempest.conf
+[DEFAULT]
+debug = true
+
+[auth]
+admin_username = admin
+admin_project_name = admin
+admin_domain_name = Default
+admin_password = admin
+EOT
 tox -esmoke
 
 # Tear down
