@@ -31,18 +31,20 @@ echo "Provisioning server..."
     --keypair="ci" \
     --wait-for-completion;
 
-echo "Attempting to SSH into $IP..."
+echo "Attempting to SSH into instance..."
 while true; do
-    IP=`./rack servers instance list --name="$INSTANCE_NAME" --fields=publicipv4 --status=ACTIVE | sed -n 2p`
+    PUBLIC_IP=`./rack servers instance list --name="$INSTANCE_NAME" --fields=publicipv4 --status=ACTIVE | sed -n 2p`
     if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$IP 'whoami'; then
         break
     fi
     sleep 1.0
 done
 
-echo "Running devstack-lxc @ $IP..."
+PRIVATE_IP=`./rack servers instance list --name="$INSTANCE_NAME" --fields=privateipv4 --status=ACTIVE | sed -n 2p`
+
+echo "Running devstack-lxc @ $PUBLIC_IP..."
 ssh \
     -o BatchMode=yes \
     -o UserKnownHostsFile=/dev/null \
     -o StrictHostKeyChecking=no \
-    root@$IP 'bash -s' < $DIR/../install-devstack-lxc.sh "$IP"
+    root@$PUBLIC_IP 'bash -s' < $DIR/../install-devstack-lxc.sh "$PRIVATE_IP"
