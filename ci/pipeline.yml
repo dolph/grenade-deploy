@@ -9,7 +9,7 @@ resources:
   type: git
   source:
     uri: https://github.com/osic/devstack-lxc.git
-    branch: master
+    branch: lxc-multinode-grenade
 - name: daily
   type: time
   source:
