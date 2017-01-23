@@ -17,6 +17,9 @@ cd /home/stack/devstack-lxc
 git checkout lxc-multinode-grenade
 sudo -H -u stack sudo ./install-multinode.sh
 
+# Skip smoke tests.
+exit
+
 # Smoke test
 apt-get install -y \
     build-essential \
