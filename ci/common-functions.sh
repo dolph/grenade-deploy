@@ -77,9 +77,15 @@ function provision_instance {
 
     while true; do
         public_ip=$(get_public_ip $instance_name)
-        if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$public_ip 'whoami'; then
-            break
+
+        # If we have an IP...
+        if [[ -z "$public_ip" ]] then
+            # Attempt to SSH into the instance.
+            if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$public_ip 'whoami'; then
+                break
+            fi
         fi
+
         sleep 1.0
     done
 }
