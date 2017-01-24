@@ -14,7 +14,7 @@ echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 cd /home/stack
 sudo -H -u stack git clone https://github.com/osic/devstack-lxc.git
 cd /home/stack/devstack-lxc
-git checkout lxc-multinode-grenade
+sudo -H -u stack git checkout lxc-multinode-grenade
 sudo -H -u stack sudo ./install-multinode.sh
 
 # Skip smoke tests.
