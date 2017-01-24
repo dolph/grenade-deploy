@@ -28,4 +28,4 @@ ssh \
     -o BatchMode=yes \
     -o UserKnownHostsFile=/dev/null \
     -o StrictHostKeyChecking=no \
-    root@$public_ip 'bash -s' < $DIR/../install-devstack-lxc.sh "$private_ip)"
+    root@$public_ip 'bash -s' < $DIR/../install-devstack-lxc.sh "$private_ip"
