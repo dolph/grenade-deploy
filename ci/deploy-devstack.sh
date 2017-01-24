@@ -7,14 +7,13 @@ RACK_USERNAME=$3
 RACK_API_KEY=$4
 RACK_REGION=$5
 IMAGE_NAME=$6
+INSTANCE_NAME=$7
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 bash $DIR/bootstrap-common.sh
 bash $DIR/bootstrap-ssh.sh "$SSH_PUBLIC_KEY" "$SSH_PRIVATE_KEY_BODY"
 bash $DIR/bootstrap-rack.sh "$RACK_USERNAME" "$RACK_API_KEY" "$RACK_REGION"
-
-INSTANCE_NAME="ci-devstack"
 
 echo "Deleting existing server (if one exists)..."
 ./rack servers instance delete --name="$INSTANCE_NAME" || true

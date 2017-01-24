@@ -161,6 +161,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+        - ci-devstack-1604
 - name: devstack-14.04
   serial: true
   build_logs_to_retain: 3
@@ -190,6 +191,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
+        - ci-devstack-1404
 - name: devstack-lxc-16.04
   build_logs_to_retain: 3
   max_in_flight: 3
