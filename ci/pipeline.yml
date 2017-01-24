@@ -16,7 +16,7 @@ resources:
   - interval: 24h
 
 jobs:
-- name: grenade-master
+- name: grenade-master-16.04
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
@@ -44,6 +44,36 @@ jobs:
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
+        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+- name: grenade-master-14.04
+  build_logs_to_retain: 3
+  max_in_flight: 3
+  plan:
+  - get: daily
+    trigger: true
+  - get: pineapple
+    trigger: false
+  - task: deploy
+    timeout: 2h
+    attempts: 3
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: phusion/baseimage
+      inputs:
+      - name: pineapple
+      run:
+        path: pineapple/ci/deploy-grenade.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - master
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
 - name: grenade-newton
   build_logs_to_retain: 3
   max_in_flight: 3
@@ -72,6 +102,7 @@ jobs:
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
+        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
 - name: grenade-ocata
   build_logs_to_retain: 3
   max_in_flight: 3
@@ -100,7 +131,8 @@ jobs:
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
-- name: devstack
+        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+- name: devstack-16.04
   serial: true
   build_logs_to_retain: 3
   max_in_flight: 1
@@ -128,7 +160,37 @@ jobs:
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
-- name: devstack-lxc
+        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+- name: devstack-14.04
+  serial: true
+  build_logs_to_retain: 3
+  max_in_flight: 1
+  plan:
+  - get: daily
+    trigger: true
+  - get: pineapple
+    trigger: false
+  - task: deploy
+    timeout: 3h
+    attempts: 3
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: phusion/baseimage
+      inputs:
+      - name: pineapple
+      run:
+        path: pineapple/ci/deploy-devstack.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
+- name: devstack-lxc-16.04
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
@@ -157,3 +219,34 @@ jobs:
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
+        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+- name: devstack-lxc-14.04
+  build_logs_to_retain: 3
+  max_in_flight: 3
+  plan:
+  - get: daily
+    trigger: true
+  - get: pineapple
+    trigger: true
+  - get: devstack-lxc
+    trigger: true
+  - task: deploy
+    timeout: 3h
+    attempts: 1
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: phusion/baseimage
+      inputs:
+      - name: pineapple
+      run:
+        path: pineapple/ci/deploy-devstack-lxc.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)

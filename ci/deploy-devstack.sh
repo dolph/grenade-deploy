@@ -6,6 +6,7 @@ SSH_PRIVATE_KEY_BODY=$2
 RACK_USERNAME=$3
 RACK_API_KEY=$4
 RACK_REGION=$5
+IMAGE_NAME=$6
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -21,7 +22,7 @@ echo "Deleting existing server (if one exists)..."
 echo "Provisioning server..."
 ./rack servers instance create \
     --name="$INSTANCE_NAME" \
-    --image-name="Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)" \
+    --image-name="$IMAGE_NAME" \
     --flavor-name="8 GB Performance" \
     --keypair="ci" \
     --wait-for-completion;

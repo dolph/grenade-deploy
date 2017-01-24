@@ -7,6 +7,7 @@ GRENADE_BRANCH=$3
 RACK_USERNAME=$4
 RACK_API_KEY=$5
 RACK_REGION=$6
+IMAGE_NAME=$7
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -26,7 +27,7 @@ trap cleanup EXIT
 echo "Provisioning server..."
 ./rack servers instance create \
     --name="$INSTANCE_NAME" \
-    --image-name="Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)" \
+    --image-name="$IMAGE_NAME" \
     --flavor-name="8 GB Performance" \
     --keypair="ci" \
     --wait-for-completion;

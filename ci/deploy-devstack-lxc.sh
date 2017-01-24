@@ -6,6 +6,7 @@ SSH_PRIVATE_KEY_BODY=$2
 RACK_USERNAME=$3
 RACK_API_KEY=$4
 RACK_REGION=$5
+IMAGE_NAME=$6
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -13,7 +14,6 @@ bash $DIR/bootstrap-common.sh
 bash $DIR/bootstrap-ssh.sh "$SSH_PUBLIC_KEY" "$SSH_PRIVATE_KEY_BODY"
 bash $DIR/bootstrap-rack.sh "$RACK_USERNAME" "$RACK_API_KEY" "$RACK_REGION"
 
-INSTANCE_NUMBER=
 INSTANCE_NAME="ci-devstack-lxc-`shuf -i 100000-999999 -n 1`"
 
 # Always cleanup instances when the script exits.
@@ -26,7 +26,7 @@ trap cleanup EXIT
 echo "Provisioning server..."
 ./rack servers instance create \
     --name="$INSTANCE_NAME" \
-    --image-name="Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)" \
+    --image-name="$IMAGE_NAME" \
     --flavor-name="8 GB Performance" \
     --keypair="ci" \
     --wait-for-completion;
