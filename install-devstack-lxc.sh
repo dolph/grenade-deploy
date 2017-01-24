@@ -7,6 +7,7 @@ for i in `seq 1 10`;
 do
     apt-get update && break || sleep 15
 done
+# FIXME: python stuff should be installed by grenade/devstack
 apt-get install -y git python3 python3-dev python3-pip
 adduser --disabled-password --gecos "" stack
 echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
