@@ -75,15 +75,22 @@ function provision_instance {
         --keypair="ci" \
         --wait-for-completion;
 
+    # Wait until we have an IP.
     while true; do
         public_ip=$(get_public_ip $instance_name)
 
         # If we have an IP...
         if [[ -z "${public_ip// }" ]]; then
-            # Attempt to SSH into the instance.
-            if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$public_ip 'whoami'; then
-                break
-            fi
+            break
+        fi
+
+        sleep 1.0
+    done
+
+    # Wait until we can SSH into the instance...
+    while true; do
+        if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$public_ip 'whoami'; then
+            break
         fi
 
         sleep 1.0
