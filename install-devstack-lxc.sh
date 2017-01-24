@@ -11,6 +11,9 @@ apt-get install -y git python3 python3-dev python3-pip
 adduser --disabled-password --gecos "" stack
 echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+# Hack to workaround devstack looking for "is_ubuntu"
+ln -s /bin/true /usr/local/bin/is_ubuntu
+
 cd /home/stack
 sudo -H -u stack git clone https://github.com/osic/devstack-lxc.git
 cd /home/stack/devstack-lxc
