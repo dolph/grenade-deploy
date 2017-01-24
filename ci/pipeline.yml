@@ -43,7 +43,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-- name: grenade-master-16.04
+- name: grenade-16.04
   serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
@@ -74,7 +74,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-- name: grenade-master-14.04
+- name: grenade-14.04
   serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
@@ -105,68 +105,6 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
-- name: grenade-newton
-  serial: false
-  build_logs_to_retain: 3
-  max_in_flight: 3
-  plan:
-  - get: daily
-    trigger: false
-  - get: pineapple
-    passed: [smoke-test]
-    trigger: false
-  - task: deploy
-    timeout: 2h
-    attempts: 3
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: phusion/baseimage
-      inputs:
-      - name: pineapple
-      run:
-        path: pineapple/ci/deploy-grenade.sh
-        args:
-        - {{ssh_public_key}}
-        - {{ssh_private_key_only}}
-        - stable/newton
-        - {{rack_username}}
-        - {{rack_api_key}}
-        - {{rack_region}}
-        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-- name: grenade-ocata
-  serial: false
-  build_logs_to_retain: 3
-  max_in_flight: 3
-  plan:
-  - get: daily
-    trigger: false
-  - get: pineapple
-    passed: [smoke-test]
-    trigger: false
-  - task: deploy
-    timeout: 2h
-    attempts: 3
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: phusion/baseimage
-      inputs:
-      - name: pineapple
-      run:
-        path: pineapple/ci/deploy-grenade.sh
-        args:
-        - {{ssh_public_key}}
-        - {{ssh_private_key_only}}
-        - stable/ocata
-        - {{rack_username}}
-        - {{rack_api_key}}
-        - {{rack_region}}
-        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
 - name: devstack-16.04
   serial: true
   build_logs_to_retain: 3
