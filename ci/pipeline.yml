@@ -17,6 +17,7 @@ resources:
 
 jobs:
 - name: smoke-test
+  serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
@@ -43,6 +44,7 @@ jobs:
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
 - name: grenade-master-16.04
+  serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
@@ -73,6 +75,7 @@ jobs:
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
 - name: grenade-master-14.04
+  serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
@@ -103,6 +106,7 @@ jobs:
         - {{rack_region}}
         - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
 - name: grenade-newton
+  serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
@@ -133,6 +137,7 @@ jobs:
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
 - name: grenade-ocata
+  serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
@@ -225,6 +230,7 @@ jobs:
         - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
         - ci-devstack-1404
 - name: devstack-lxc-16.04
+  serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
@@ -256,6 +262,7 @@ jobs:
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
 - name: devstack-lxc-14.04
+  serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
