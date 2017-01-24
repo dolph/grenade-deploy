@@ -46,7 +46,7 @@ admin_password = admin
 auth_version = v2
 uri = http://$HOST_IP:35357/v2.0/
 EOT
-tox -esmoke
+sudo -H -u stack tox -esmoke
 
 # Tear down
 cd /home/stack/devstack-lxc
