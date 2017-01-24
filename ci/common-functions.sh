@@ -13,8 +13,8 @@ function bootstrap_rack {
     apt-get install -y curl
 
     # Download the 64-bit rack client binary
-    curl https://ec4a542dbf90c03b9f75-b342aba65414ad802720b41e8159cf45.ssl.cf5.rackcdn.com/1.2/Linux/amd64/rack > rack
-    chmod +x rack
+    curl https://ec4a542dbf90c03b9f75-b342aba65414ad802720b41e8159cf45.ssl.cf5.rackcdn.com/1.2/Linux/amd64/rack > /usr/local/bin/rack
+    chmod +x /usr/local/bin/rack
 
     # Configure rack client
     mkdir ~/.rack/
@@ -68,7 +68,7 @@ function provision_instance {
     instance_name=$1
     image_name=$2
 
-    ./rack servers instance create \
+    rack servers instance create \
         --name="$instance_name" \
         --image-name="$image_name" \
         --flavor-name="8 GB Performance" \
@@ -87,5 +87,5 @@ function provision_instance {
 function delete_instance {
     instance_name=$1
 
-    ./rack servers instance delete --name="$instance_name" || true
+    rack servers instance delete --name="$instance_name" || true
 }
