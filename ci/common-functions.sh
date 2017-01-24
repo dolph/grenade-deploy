@@ -80,7 +80,7 @@ function provision_instance {
         public_ip=$(get_public_ip $instance_name)
 
         # If we have an IP...
-        if [[ -z "${public_ip// }" ]]; then
+        if [[ ! -z "${public_ip// }" ]]; then
             break
         fi
 
