@@ -35,9 +35,9 @@ function bootstrap_ssh {
     chmod 0644 ~/.ssh/id_rsa.pub
     echo $SSH_PUBLIC_KEY > ~/.ssh/id_rsa.pub
 
-    # This is really screwy, but something about the way Concourse CI handles line
-    # breaks from YML files causes them to be replaced by spaces by the time we get
-    # here, so we have to manually fix things up.
+    # This is really screwy, but something about the way Concourse CI handles
+    # line breaks from YML files causes them to be replaced by spaces by the
+    # time we get here, so we have to manually fix things up.
     touch ~/.ssh/id_rsa
     chmod 0600 ~/.ssh/id_rsa
     echo '-----BEGIN RSA PRIVATE KEY-----' > ~/.ssh/id_rsa
