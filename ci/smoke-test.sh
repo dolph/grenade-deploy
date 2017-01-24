@@ -7,7 +7,8 @@ RACK_USERNAME=$3
 RACK_API_KEY=$4
 RACK_REGION=$5
 IMAGE_NAME=$6
-INSTANCE_NAME=$7
+
+INSTANCE_NAME="ci-pineapple-`shuf -i 100000-999999 -n 1`"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
