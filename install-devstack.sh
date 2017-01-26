@@ -11,10 +11,10 @@ apt-get install -y git
 adduser --disabled-password --gecos "" stack
 echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 mkdir -p /opt/stack/
-chown stack:stack /opt/stack/
+mv /opt/devstack/ /opt/stack/
+chown --recursive stack:stack /opt/stack/
 
 cd /opt/stack;
-sudo -H -u stack git clone https://git.openstack.org/openstack-dev/devstack
 sudo -H -u stack cat <<EOT >> /opt/stack/devstack/local.conf
 [[local|localrc]]
 ADMIN_PASSWORD=$PASSWORD

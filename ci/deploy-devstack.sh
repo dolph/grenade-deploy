@@ -22,6 +22,7 @@ provision_instance "$INSTANCE_NAME" "$IMAGE_NAME"
 public_ip=$(get_public_ip $INSTANCE_NAME)
 
 echo "Running devstack @ $public_ip..."
+rsync devstack root@$public_ip:/opt/
 ssh \
     -o BatchMode=yes \
     -o UserKnownHostsFile=/dev/null \
