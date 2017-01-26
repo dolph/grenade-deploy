@@ -10,6 +10,11 @@ resources:
   source:
     uri: https://github.com/osic/devstack-lxc.git
     branch: lxc-multinode-grenade
+- name: openstack-ansible
+  type: git
+  source:
+    uri: https://github.com/openstack/openstack-ansible.git
+    branch: master
 - name: daily
   type: time
   source:
@@ -231,3 +236,69 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
+- name: osa-16.04
+  serial: true
+  build_logs_to_retain: 3
+  max_in_flight: 1
+  plan:
+  - get: daily
+    trigger: true
+  - get: pineapple
+    passed: [smoke-test]
+    trigger: false
+  - get: openstack-ansible
+    trigger: false
+  - task: deploy
+    timeout: 2h
+    attempts: 3
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: phusion/baseimage
+      inputs:
+      - name: pineapple
+      run:
+        path: pineapple/ci/deploy-osa.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+        - ci-osa-1604
+- name: osa-14.04
+  serial: true
+  build_logs_to_retain: 3
+  max_in_flight: 1
+  plan:
+  - get: daily
+    trigger: true
+  - get: pineapple
+    passed: [smoke-test]
+    trigger: false
+  - get: openstack-ansible
+    trigger: false
+  - task: deploy
+    timeout: 2h
+    attempts: 3
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: phusion/baseimage
+      inputs:
+      - name: pineapple
+      run:
+        path: pineapple/ci/deploy-osa.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
+        - ci-osa-1404

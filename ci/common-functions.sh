@@ -87,6 +87,12 @@ function provision_instance {
         sleep 1.0
     done
 
+    wait_for_ssh $public_ip
+}
+
+function wait_for_ssh {
+    public_ip=$1
+
     # Wait until we can SSH into the instance...
     while true; do
         if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$public_ip 'whoami'; then
@@ -95,6 +101,15 @@ function provision_instance {
 
         sleep 1.0
     done
+
+}
+
+function upgrade_instance {
+    public_ip=$1
+
+    ssh root@$public_ip "apt-get dist-upgrade -y && reboot"
+    sleep 3
+    wait_for_ssh $public_ip
 }
 
 function delete_instance {
