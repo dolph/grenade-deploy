@@ -5,6 +5,16 @@ resources:
   source:
     uri: https://github.com/dolph/pineapple.git
     branch: master
+- name: devstack
+  type: git
+  source:
+    uri: https://github.com/openstack-dev/devstack.git
+    branch: master
+- name: grenade
+  type: git
+  source:
+    uri: https://github.com/openstack-dev/grenade.git
+    branch: master
 - name: devstack-lxc
   type: git
   source:
@@ -15,10 +25,6 @@ resources:
   source:
     uri: https://github.com/openstack/openstack-ansible.git
     branch: master
-- name: daily
-  type: time
-  source:
-  - interval: 24h
 
 jobs:
 - name: smoke-test
@@ -48,15 +54,77 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+- name: devstack-16.04
+  serial: true
+  build_logs_to_retain: 3
+  max_in_flight: 1
+  plan:
+  - get: pineapple
+    passed: [smoke-test]
+    trigger: false
+  - get: devstack
+    trigger: true
+  - task: deploy
+    timeout: 3h
+    attempts: 3
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: phusion/baseimage
+      inputs:
+      - name: pineapple
+      run:
+        path: pineapple/ci/deploy-devstack.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+        - ci-devstack-1604
+- name: devstack-14.04
+  serial: true
+  build_logs_to_retain: 3
+  max_in_flight: 1
+  plan:
+  - get: pineapple
+    passed: [smoke-test]
+    trigger: false
+  - get: devstack
+    trigger: true
+  - task: deploy
+    timeout: 3h
+    attempts: 3
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: phusion/baseimage
+      inputs:
+      - name: pineapple
+      run:
+        path: pineapple/ci/deploy-devstack.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
+        - ci-devstack-1404
 - name: grenade-16.04
   serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
-  - get: daily
-    trigger: true
   - get: pineapple
     passed: [smoke-test]
+    trigger: true
+  - get: grenade
     trigger: true
   - task: deploy
     timeout: 2h
@@ -84,10 +152,10 @@ jobs:
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
-  - get: daily
-    trigger: true
   - get: pineapple
     passed: [smoke-test]
+    trigger: true
+  - get: grenade
     trigger: true
   - task: deploy
     timeout: 2h
@@ -110,79 +178,18 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
-- name: devstack-16.04
-  serial: true
-  build_logs_to_retain: 3
-  max_in_flight: 1
-  plan:
-  - get: daily
-    trigger: true
-  - get: pineapple
-    passed: [smoke-test]
-    trigger: false
-  - task: deploy
-    timeout: 3h
-    attempts: 3
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: phusion/baseimage
-      inputs:
-      - name: pineapple
-      run:
-        path: pineapple/ci/deploy-devstack.sh
-        args:
-        - {{ssh_public_key}}
-        - {{ssh_private_key_only}}
-        - {{rack_username}}
-        - {{rack_api_key}}
-        - {{rack_region}}
-        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-        - ci-devstack-1604
-- name: devstack-14.04
-  serial: true
-  build_logs_to_retain: 3
-  max_in_flight: 1
-  plan:
-  - get: daily
-    trigger: true
-  - get: pineapple
-    passed: [smoke-test]
-    trigger: false
-  - task: deploy
-    timeout: 3h
-    attempts: 3
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: phusion/baseimage
-      inputs:
-      - name: pineapple
-      run:
-        path: pineapple/ci/deploy-devstack.sh
-        args:
-        - {{ssh_public_key}}
-        - {{ssh_private_key_only}}
-        - {{rack_username}}
-        - {{rack_api_key}}
-        - {{rack_region}}
-        - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
-        - ci-devstack-1404
 - name: devstack-lxc-16.04
   serial: false
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
-  - get: daily
-    trigger: true
   - get: pineapple
     passed: [smoke-test]
     trigger: true
   - get: devstack-lxc
+    trigger: true
+  - get: grenade
+    passed: [grenade-16.04]
     trigger: true
   - task: deploy
     timeout: 3h
@@ -209,12 +216,13 @@ jobs:
   build_logs_to_retain: 3
   max_in_flight: 3
   plan:
-  - get: daily
-    trigger: true
   - get: pineapple
     passed: [smoke-test]
     trigger: true
   - get: devstack-lxc
+    trigger: true
+  - get: grenade
+    passed: [grenade-14.04]
     trigger: true
   - task: deploy
     timeout: 3h
@@ -241,13 +249,11 @@ jobs:
   build_logs_to_retain: 3
   max_in_flight: 1
   plan:
-  - get: daily
-    trigger: true
   - get: pineapple
     passed: [smoke-test]
     trigger: false
   - get: openstack-ansible
-    trigger: false
+    trigger: true
   - task: deploy
     timeout: 2h
     attempts: 3
@@ -274,13 +280,11 @@ jobs:
   build_logs_to_retain: 3
   max_in_flight: 1
   plan:
-  - get: daily
-    trigger: true
   - get: pineapple
     passed: [smoke-test]
     trigger: false
   - get: openstack-ansible
-    trigger: false
+    trigger: true
   - task: deploy
     timeout: 2h
     attempts: 3
