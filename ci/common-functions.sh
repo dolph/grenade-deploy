@@ -107,7 +107,11 @@ function wait_for_ssh {
 function upgrade_instance {
     public_ip=$1
 
-    ssh root@$public_ip "apt-get dist-upgrade -y && reboot"
+    ssh \
+        -o BatchMode=yes \
+        -o UserKnownHostsFile=/dev/null \
+        -o StrictHostKeyChecking=no \
+        root@$public_ip 'apt-get dist-upgrade -y && reboot'
     sleep 3
     wait_for_ssh $public_ip
 }
