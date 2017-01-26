@@ -111,7 +111,8 @@ function upgrade_instance {
         -o BatchMode=yes \
         -o UserKnownHostsFile=/dev/null \
         -o StrictHostKeyChecking=no \
-        root@$public_ip 'apt-get dist-upgrade -y && reboot'
+        root@$public_ip 'for i in `seq 1 10`; do apt-get update && break || sleep 15; done; apt-get dist-upgrade -y && reboot'
+
     sleep 3
     wait_for_ssh $public_ip
 }
