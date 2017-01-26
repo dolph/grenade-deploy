@@ -67,11 +67,12 @@ function get_private_ip {
 function provision_instance {
     instance_name=$1
     image_name=$2
+    flavor_name=${3:-8GB Performance}
 
     rack servers instance create \
         --name="$instance_name" \
         --image-name="$image_name" \
-        --flavor-name="8 GB Performance" \
+        --flavor-name="$flavor_name" \
         --keypair="ci" \
         --wait-for-completion;
 
