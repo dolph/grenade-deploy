@@ -123,6 +123,7 @@ function upgrade_instance {
         root@$public_ip \
         'apt-get dist-upgrade -y'
     ssh \
+        -o BatchMode=yes \
         root@$public_ip \
         'reboot -n &'
 
