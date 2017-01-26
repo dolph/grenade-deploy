@@ -117,9 +117,9 @@ jobs:
         - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
         - ci-devstack-1404
 - name: grenade-16.04
-  serial: false
+  serial: true
   build_logs_to_retain: 3
-  max_in_flight: 3
+  max_in_flight: 1
   plan:
   - get: pineapple
     passed: [smoke-test]
@@ -148,9 +148,9 @@ jobs:
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
 - name: grenade-14.04
-  serial: false
+  serial: true
   build_logs_to_retain: 3
-  max_in_flight: 3
+  max_in_flight: 1
   plan:
   - get: pineapple
     passed: [smoke-test]
@@ -179,9 +179,9 @@ jobs:
         - {{rack_region}}
         - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
 - name: devstack-lxc-16.04
-  serial: false
+  serial: true
   build_logs_to_retain: 3
-  max_in_flight: 3
+  max_in_flight: 1
   plan:
   - get: pineapple
     passed: [smoke-test]
@@ -212,9 +212,9 @@ jobs:
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
 - name: devstack-lxc-14.04
-  serial: false
+  serial: true
   build_logs_to_retain: 3
-  max_in_flight: 3
+  max_in_flight: 1
   plan:
   - get: pineapple
     passed: [smoke-test]
