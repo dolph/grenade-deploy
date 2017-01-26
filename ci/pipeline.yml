@@ -61,7 +61,7 @@ jobs:
   plan:
   - get: pineapple
     passed: [smoke-test]
-    trigger: false
+    trigger: true
   - get: devstack
     trigger: true
   - task: deploy
@@ -92,7 +92,7 @@ jobs:
   plan:
   - get: pineapple
     passed: [smoke-test]
-    trigger: false
+    trigger: true
   - get: devstack
     trigger: true
   - task: deploy
@@ -251,7 +251,7 @@ jobs:
   plan:
   - get: pineapple
     passed: [smoke-test]
-    trigger: false
+    trigger: true
   - get: openstack-ansible
     trigger: true
   - task: deploy
@@ -282,7 +282,7 @@ jobs:
   plan:
   - get: pineapple
     passed: [smoke-test]
-    trigger: false
+    trigger: true
   - get: openstack-ansible
     trigger: true
   - task: deploy
