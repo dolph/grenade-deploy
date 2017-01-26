@@ -130,7 +130,7 @@ jobs:
     trigger: true
   - task: deploy
     timeout: 2h
-    attempts: 3
+    attempts: 1
     config:
       platform: linux
       image_resource:
@@ -262,7 +262,7 @@ jobs:
     trigger: true
   - task: deploy
     timeout: 2h
-    attempts: 3
+    attempts: 1
     config:
       platform: linux
       image_resource:
@@ -294,7 +294,7 @@ jobs:
     trigger: true
   - task: deploy
     timeout: 2h
-    attempts: 3
+    attempts: 1
     config:
       platform: linux
       image_resource:
