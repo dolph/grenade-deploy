@@ -124,7 +124,7 @@ function upgrade_instance {
         'apt-get dist-upgrade -y'
     ssh \
         root@$public_ip \
-        'reboot -n'
+        'reboot -n &'
 
     sleep 15
 
