@@ -112,7 +112,20 @@ function upgrade_instance {
 
     ssh \
         -o BatchMode=yes \
-        root@$public_ip 'for i in `seq 1 10`; do apt-get update && break || sleep 1; done; apt-get upgrade -y && apt-get dist-upgrade -y && reboot 1'
+        root@$public_ip \
+        'for i in `seq 1 10`; do apt-get update && break || sleep 1; done;'
+    ssh \
+        -o BatchMode=yes \
+        root@$public_ip \
+        'apt-get upgrade -y'
+    ssh \
+        -o BatchMode=yes \
+        root@$public_ip \
+        'apt-get dist-upgrade -y'
+    ssh \
+        -o BatchMode=yes \
+        root@$public_ip \
+        'reboot -n'
 
     sleep 75
 
