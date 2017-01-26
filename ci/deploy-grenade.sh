@@ -3,11 +3,10 @@ set -ex
 
 SSH_PUBLIC_KEY=$1
 SSH_PRIVATE_KEY_BODY=$2
-GRENADE_BRANCH=$3
-RACK_USERNAME=$4
-RACK_API_KEY=$5
-RACK_REGION=$6
-IMAGE_NAME=$7
+RACK_USERNAME=$3
+RACK_API_KEY=$4
+RACK_REGION=$5
+IMAGE_NAME=$6
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -27,4 +26,4 @@ echo "Running grenade @ $public_ip..."
 rsync --recursive grenade root@$public_ip:/opt/
 ssh \
     -o BatchMode=yes \
-    root@$public_ip 'bash -s' < $DIR/../install-grenade.sh "$GRENADE_BRANCH"
+    root@$public_ip 'bash -s' < $DIR/../install-grenade.sh

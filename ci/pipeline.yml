@@ -145,7 +145,6 @@ jobs:
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
-        - master
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}
@@ -177,7 +176,6 @@ jobs:
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
-        - master
         - {{rack_username}}
         - {{rack_api_key}}
         - {{rack_region}}

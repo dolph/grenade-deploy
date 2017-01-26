@@ -1,8 +1,6 @@
 #!/bin/bash
 set -ex
 
-GRENADE_BRANCH=$1
-
 function cleanup {
     shutdown -h now
 }
@@ -39,5 +37,4 @@ EOT
 
 cd /opt/stack/grenade;
 
-sudo -H -u stack git checkout $GRENADE_BRANCH
 sudo -H -u stack bash grenade.sh
