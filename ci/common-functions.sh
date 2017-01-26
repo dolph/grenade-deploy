@@ -27,7 +27,7 @@ function bootstrap_ssh {
     ssh_public_key=$1
     ssh_private_key_body=$2
 
-    apt-get install -y ssh
+    apt-get install -y ssh rsync
 
     # Drop the public key into place.
     mkdir -p ~/.ssh/
