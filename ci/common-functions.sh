@@ -99,7 +99,7 @@ function wait_for_ssh {
 
     # Wait until we can SSH into the instance...
     while true; do
-        if ssh -o BatchMode=yes root@$public_ip 'whoami'; then
+        if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$public_ip 'whoami'; then
             break
         fi
 
