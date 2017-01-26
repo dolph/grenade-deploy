@@ -125,9 +125,9 @@ function upgrade_instance {
     ssh \
         -o BatchMode=yes \
         root@$public_ip \
-        'reboot -n'
+        'reboot -n && exit'
 
-    sleep 75
+    sleep 15
 
     wait_for_ssh $public_ip
 }
