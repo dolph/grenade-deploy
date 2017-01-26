@@ -17,8 +17,8 @@ ln -s /bin/true /usr/local/bin/is_ubuntu
 
 mv /opt/devstack-lxc /home/stack/
 chown --recursive stack:stack /home/stack/devstack-lxc/
+
 cd /home/stack/devstack-lxc
-sudo -H -u stack git checkout lxc-multinode-grenade
 sudo -H -u stack sudo ./install-multinode.sh
 
 # Skip smoke tests.
