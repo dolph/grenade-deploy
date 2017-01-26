@@ -5,7 +5,6 @@ for i in `seq 1 10`;
 do
     apt-get update && break || sleep 15
 done
-apt-get install -y git
 
 cd /opt/openstack-ansible
 export BOOTSTRAP_OPTS="bootstrap_host_ubuntu_repo=http://mirror.rackspace.com/ubuntu"
