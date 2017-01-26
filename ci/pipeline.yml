@@ -19,7 +19,7 @@ resources:
   type: git
   source:
     uri: https://github.com/osic/devstack-lxc.git
-    branch: lxc-multinode-grenade
+    branch: multinode-vm-lxc
 - name: openstack-ansible
   type: git
   source:
