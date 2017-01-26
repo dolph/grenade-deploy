@@ -15,6 +15,6 @@ cd /opt/openstack-ansible
 git checkout $BRANCH
 export BOOTSTRAP_OPTS="bootstrap_host_ubuntu_repo=http://mirror.rackspace.com/ubuntu"
 export ANSIBLE_ROLE_FETCH_MODE=git-clone
-scripts/bootstrap-ansible.sh
-scripts/bootstrap-aio.sh
-scripts/run-playbooks.sh
+bash scripts/bootstrap-ansible.sh
+bash scripts/bootstrap-aio.sh
+bash scripts/run-playbooks.sh
