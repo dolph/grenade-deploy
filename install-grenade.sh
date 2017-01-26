@@ -1,11 +1,6 @@
 #!/bin/bash
 set -ex
 
-function cleanup {
-    shutdown -h now
-}
-trap cleanup EXIT
-
 for i in `seq 1 10`;
 do
     apt-get update && break || sleep 15
