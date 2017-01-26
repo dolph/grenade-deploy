@@ -26,6 +26,4 @@ private_ip=$(get_private_ip $INSTANCE_NAME)
 echo "Running devstack-lxc @ $public_ip..."
 ssh \
     -o BatchMode=yes \
-    -o UserKnownHostsFile=/dev/null \
-    -o StrictHostKeyChecking=no \
     root@$public_ip 'bash -s' < $DIR/../install-devstack-lxc.sh "$private_ip"

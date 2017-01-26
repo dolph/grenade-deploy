@@ -24,6 +24,4 @@ upgrade_instance "$public_ip"
 echo "Running OSA @ $public_ip..."
 ssh \
     -o BatchMode=yes \
-    -o UserKnownHostsFile=/dev/null \
-    -o StrictHostKeyChecking=no \
     root@$public_ip 'bash -s' < $DIR/../install-osa.sh

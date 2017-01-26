@@ -30,6 +30,4 @@ ls -l ../..
 rsync --recursive ../ root@$public_ip:/opt/
 ssh \
     -o BatchMode=yes \
-    -o UserKnownHostsFile=/dev/null \
-    -o StrictHostKeyChecking=no \
     root@$public_ip 'whoami'

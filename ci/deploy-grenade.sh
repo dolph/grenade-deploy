@@ -26,6 +26,4 @@ public_ip=$(get_public_ip $INSTANCE_NAME)
 echo "Running grenade @ $public_ip..."
 ssh \
     -o BatchMode=yes \
-    -o UserKnownHostsFile=/dev/null \
-    -o StrictHostKeyChecking=no \
     root@$public_ip 'bash -s' < $DIR/../install-grenade.sh "$GRENADE_BRANCH"

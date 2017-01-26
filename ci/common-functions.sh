@@ -88,6 +88,10 @@ function provision_instance {
     done
 
     wait_for_ssh $public_ip
+
+    # Keyscan the new host.
+    touch ~/.ssh/known_hosts
+    ssh-keyscan -H $public_ip >> ~/.ssh/known_hosts
 }
 
 function wait_for_ssh {
@@ -95,13 +99,12 @@ function wait_for_ssh {
 
     # Wait until we can SSH into the instance...
     while true; do
-        if ssh -o BatchMode=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$public_ip 'whoami'; then
+        if ssh -o BatchMode=yes -o root@$public_ip 'whoami'; then
             break
         fi
 
         sleep 1.0
     done
-
 }
 
 function upgrade_instance {
@@ -109,8 +112,6 @@ function upgrade_instance {
 
     ssh \
         -o BatchMode=yes \
-        -o UserKnownHostsFile=/dev/null \
-        -o StrictHostKeyChecking=no \
         root@$public_ip 'for i in `seq 1 10`; do apt-get update && break || sleep 15; done; apt-get upgrade -y && apt-get dist-upgrade -y && shutdown --reboot 1'
 
     sleep 10
