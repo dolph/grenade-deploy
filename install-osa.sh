@@ -1,8 +1,6 @@
 #!/bin/bash
 set -ex
 
-PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
-
 for i in `seq 1 10`;
 do
     apt-get update && break || sleep 15
