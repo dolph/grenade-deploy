@@ -75,6 +75,7 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
+      - name: devstack
       run:
         path: pineapple/ci/deploy-devstack.sh
         args:
@@ -106,6 +107,7 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
+      - name: devstack
       run:
         path: pineapple/ci/deploy-devstack.sh
         args:
@@ -137,6 +139,7 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
+      - name: grenade
       run:
         path: pineapple/ci/deploy-grenade.sh
         args:
@@ -168,6 +171,7 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
+      - name: grenade
       run:
         path: pineapple/ci/deploy-grenade.sh
         args:
@@ -202,6 +206,8 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
+      - name: devstack-lxc
+      - name: grenade
       run:
         path: pineapple/ci/deploy-devstack-lxc.sh
         args:
@@ -235,6 +241,8 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
+      - name: devstack-lxc
+      - name: grenade
       run:
         path: pineapple/ci/deploy-devstack-lxc.sh
         args:
@@ -265,6 +273,7 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
+      - name: openstack-ansible
       run:
         path: pineapple/ci/deploy-osa.sh
         args:
@@ -296,6 +305,7 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
+      - name: openstack-ansible
       run:
         path: pineapple/ci/deploy-osa.sh
         args:
