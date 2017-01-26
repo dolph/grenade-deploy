@@ -11,7 +11,7 @@ apt-get install -y git
 adduser --disabled-password --gecos "" stack
 echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 mkdir -p /opt/stack/
-mv /opt/devstack/ /opt/stack/
+mv /opt/devstack /opt/stack/
 chown --recursive stack:stack /opt/stack/
 
 cd /opt/stack;

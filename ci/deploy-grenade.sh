@@ -24,6 +24,7 @@ provision_instance "$INSTANCE_NAME" "$IMAGE_NAME"
 public_ip=$(get_public_ip $INSTANCE_NAME)
 
 echo "Running grenade @ $public_ip..."
+rsync --recursive grenade root@$public_ip:/opt/
 ssh \
     -o BatchMode=yes \
     root@$public_ip 'bash -s' < $DIR/../install-grenade.sh "$GRENADE_BRANCH"

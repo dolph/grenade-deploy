@@ -10,13 +10,7 @@ do
     apt-get update && break || sleep 15
 done
 apt-get install -y git
-# adduser --disabled-password --gecos "" stack
-# echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-# mkdir -p /opt/stack/
-# chown stack:stack /opt/stack/
 
-git clone https://github.com/openstack/openstack-ansible.git \
-    /opt/openstack-ansible
 cd /opt/openstack-ansible
 git checkout $BRANCH
 export BOOTSTRAP_OPTS="bootstrap_host_ubuntu_repo=http://mirror.rackspace.com/ubuntu"

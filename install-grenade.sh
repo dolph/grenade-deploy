@@ -17,11 +17,9 @@ apt-get install -y git python3 python3-dev python3-pip
 adduser --disabled-password --gecos "" stack
 echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 mkdir -p /opt/stack/
+mv /opt/grenade /opt/stack/
 chown stack:stack /opt/stack/
 
-cd /opt/stack;
-
-sudo -H -u stack git clone https://git.openstack.org/openstack-dev/grenade
 sudo -H -u stack cat <<EOT >> /opt/stack/grenade/devstack.localrc
 # Disable heat.
 disable_service h-api h-api-cfn h-api-cw h-eng heat
