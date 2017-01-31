@@ -6,6 +6,8 @@ do
     apt-get update && break || sleep 15
 done
 
+apt-get install lxc1
+
 cd /opt/openstack-ansible
 export BOOTSTRAP_OPTS="bootstrap_host_ubuntu_repo=http://mirror.rackspace.com/ubuntu"
 export ANSIBLE_ROLE_FETCH_MODE=git-clone
