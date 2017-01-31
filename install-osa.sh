@@ -6,7 +6,7 @@ do
     apt-get update && break || sleep 15
 done
 
-apt-get install lxc1
+apt-get install -y lxc
 
 cd /opt/openstack-ansible
 export BOOTSTRAP_OPTS="bootstrap_host_ubuntu_repo=http://mirror.rackspace.com/ubuntu"
