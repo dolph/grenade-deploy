@@ -24,7 +24,7 @@ resources:
   type: git
   source:
     uri: https://github.com/openstack/openstack-ansible.git
-    branch: stable-newton
+    branch: stable/newton
 
 jobs:
 - name: smoke-test
