@@ -3,6 +3,7 @@ set -ex
 
 function bootstrap {
     export DEBIAN_FRONTEND=noninteractive
+    echo 'APT::Get::Assume-Yes;' | sudo tee -a /etc/apt/apt.conf.d/00Do-not-ask
     apt-get update
 }
 
