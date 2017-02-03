@@ -11,7 +11,7 @@ INSTANCE_NAME=$7
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-INSTANCE_NAME="ci-osa-`shuf -i 100000-999999 -n 1`"
+INSTANCE_NAME="ci-osa-upgrade"
 
 source $DIR/common-functions.sh
 
