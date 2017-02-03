@@ -36,3 +36,4 @@ rsync --recursive openstack-ansible-master/* root@$public_ip:/opt/openstack-ansi
 ssh \
     -o BatchMode=yes \
     root@$public_ip 'bash -s' < $DIR/../upgrade-osa.sh
+delete_instance "$INSTANCE_NAME"

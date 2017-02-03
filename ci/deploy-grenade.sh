@@ -27,3 +27,4 @@ rsync --recursive grenade root@$public_ip:/opt/
 ssh \
     -o BatchMode=yes \
     root@$public_ip 'bash -s' < $DIR/../install-grenade.sh
+delete_instance "$INSTANCE_NAME"

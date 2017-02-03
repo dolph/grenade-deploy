@@ -28,3 +28,4 @@ rsync --recursive devstack-lxc root@$public_ip:/opt/
 ssh \
     -o BatchMode=yes \
     root@$public_ip 'bash -s' < $DIR/../install-devstack-lxc.sh "$private_ip"
+delete_instance "$INSTANCE_NAME"
