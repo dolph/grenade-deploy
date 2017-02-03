@@ -54,7 +54,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-- name: devstack-16.04
+- name: devstack
   serial: true
   build_logs_to_retain: 3
   max_in_flight: 1
@@ -86,7 +86,7 @@ jobs:
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
         - ci-devstack-1604
-- name: grenade-16.04
+- name: grenade
   serial: true
   build_logs_to_retain: 3
   max_in_flight: 1
@@ -117,38 +117,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-- name: grenade-14.04
-  serial: true
-  build_logs_to_retain: 3
-  max_in_flight: 1
-  plan:
-  - get: pineapple
-    passed: [smoke-test]
-    trigger: true
-  - get: grenade
-    trigger: true
-  - task: deploy
-    timeout: 2h
-    attempts: 3
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: phusion/baseimage
-      inputs:
-      - name: pineapple
-      - name: grenade
-      run:
-        path: pineapple/ci/deploy-grenade.sh
-        args:
-        - {{ssh_public_key}}
-        - {{ssh_private_key_only}}
-        - {{rack_username}}
-        - {{rack_api_key}}
-        - {{rack_region}}
-        - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
-- name: devstack-lxc-16.04
+- name: devstack-lxc
   serial: true
   build_logs_to_retain: 3
   max_in_flight: 1
@@ -159,7 +128,7 @@ jobs:
   - get: devstack-lxc
     trigger: true
   - get: grenade
-    passed: [grenade-16.04]
+    passed: [grenade]
     trigger: true
   - task: deploy
     timeout: 3h
@@ -183,42 +152,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-- name: devstack-lxc-14.04
-  serial: true
-  build_logs_to_retain: 3
-  max_in_flight: 1
-  plan:
-  - get: pineapple
-    passed: [smoke-test]
-    trigger: true
-  - get: devstack-lxc
-    trigger: true
-  - get: grenade
-    passed: [grenade-14.04]
-    trigger: true
-  - task: deploy
-    timeout: 3h
-    attempts: 1
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: phusion/baseimage
-      inputs:
-      - name: pineapple
-      - name: devstack-lxc
-      - name: grenade
-      run:
-        path: pineapple/ci/deploy-devstack-lxc.sh
-        args:
-        - {{ssh_public_key}}
-        - {{ssh_private_key_only}}
-        - {{rack_username}}
-        - {{rack_api_key}}
-        - {{rack_region}}
-        - Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)
-- name: osa-16.04
+- name: osa
   serial: true
   build_logs_to_retain: 3
   max_in_flight: 1
@@ -249,4 +183,4 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-        - ci-osa-1604
+        - ci-osa
