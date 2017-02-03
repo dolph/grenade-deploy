@@ -27,4 +27,7 @@ echo "Running OSA @ $public_ip..."
 rsync --recursive openstack-ansible root@$public_ip:/opt/
 ssh \
     -o BatchMode=yes \
+    root@$public_ip 'bash -s' < $DIR/../install-osa.sh
+ssh \
+    -o BatchMode=yes \
     root@$public_ip 'bash -s' < $DIR/../upgrade-osa.sh
