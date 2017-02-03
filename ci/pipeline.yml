@@ -123,7 +123,7 @@ jobs:
   max_in_flight: 1
   plan:
   - get: pineapple
-    passed: [smoke-test]
+    passed: [smoke-test, grenade]
     trigger: true
   - get: devstack-lxc
     trigger: true
@@ -190,7 +190,7 @@ jobs:
   max_in_flight: 1
   plan:
   - get: pineapple
-    passed: [smoke-test]
+    passed: [smoke-test, osa]
     trigger: true
   - get: openstack-ansible
     passed: [osa]
