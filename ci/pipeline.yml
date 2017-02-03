@@ -85,7 +85,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-        - ci-devstack-1604
+        - ci-devstack
 - name: grenade
   serial: true
   build_logs_to_retain: 3
