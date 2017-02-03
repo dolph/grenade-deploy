@@ -2,6 +2,7 @@
 set -ex
 
 function bootstrap {
+    export DEBIAN_FRONTEND=noninteractive
     apt-get update
 }
 
