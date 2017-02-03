@@ -25,6 +25,11 @@ resources:
   source:
     uri: https://github.com/openstack/openstack-ansible.git
     branch: stable/newton
+- name: rally
+  type: git
+  source:
+    uri: https://github.com/openstack/rally.git
+    branch: master
 
 jobs:
 - name: smoke-test
@@ -216,3 +221,27 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+- name: rally-smoke
+  serial: true
+  build_logs_to_retain: 3
+  max_in_flight: 1
+  plan:
+  - get: pineapple
+    passed: [smoke-test]
+    trigger: true
+  - get: rally
+    trigger: true
+  - task: deploy
+    timeout: 3h
+    attempts: 1
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: phusion/baseimage
+      inputs:
+      - name: pineapple
+      - name: rally
+      run:
+        path: pineapple/ci/deploy-rally.sh
