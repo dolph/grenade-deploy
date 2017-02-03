@@ -20,11 +20,16 @@ resources:
   source:
     uri: https://github.com/osic/devstack-lxc.git
     branch: multinode-vm-lxc
-- name: openstack-ansible
+- name: osa-stable
   type: git
   source:
     uri: https://github.com/openstack/openstack-ansible.git
     branch: stable/newton
+- name: osa-master
+  type: git
+  source:
+    uri: https://github.com/openstack/openstack-ansible.git
+    branch: master
 - name: rally
   type: git
   source:
@@ -157,7 +162,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-- name: osa
+- name: osa-stable
   serial: true
   build_logs_to_retain: 3
   max_in_flight: 1
@@ -165,7 +170,7 @@ jobs:
   - get: pineapple
     passed: [smoke-test]
     trigger: true
-  - get: openstack-ansible
+  - get: osa-stable
     trigger: true
   - task: deploy
     timeout: 3h
@@ -178,7 +183,8 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
-      - name: openstack-ansible
+      - name: osa-stable
+        path: openstack-ansible
       run:
         path: pineapple/ci/deploy-osa.sh
         args:
@@ -188,17 +194,16 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-        - ci-osa
-- name: osa-upgrade
+        - ci-osa-stable
+- name: osa-master
   serial: true
   build_logs_to_retain: 3
   max_in_flight: 1
   plan:
   - get: pineapple
-    passed: [smoke-test, osa]
+    passed: [smoke-test]
     trigger: true
-  - get: openstack-ansible
-    passed: [osa]
+  - get: osa-master
     trigger: true
   - task: deploy
     timeout: 3h
@@ -211,7 +216,45 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
-      - name: openstack-ansible
+      - name: osa-master
+        path: openstack-ansible
+      run:
+        path: pineapple/ci/deploy-osa.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
+        - ci-osa-master
+- name: osa-upgrade
+  serial: true
+  build_logs_to_retain: 3
+  max_in_flight: 1
+  plan:
+  - get: pineapple
+    passed: [smoke-test, osa-stable, osa-master]
+    trigger: true
+  - get: osa-stable
+    passed: [osa-stable]
+    trigger: true
+  - get: osa-master
+    passed: [osa-master]
+    trigger: true
+  - task: deploy
+    timeout: 3h
+    attempts: 1
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: phusion/baseimage
+      inputs:
+      - name: pineapple
+      - name: osa-stable
+      - name: osa-master
       run:
         path: pineapple/ci/upgrade-osa.sh
         args:

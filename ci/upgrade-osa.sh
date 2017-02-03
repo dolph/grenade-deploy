@@ -24,10 +24,15 @@ public_ip=$(get_public_ip $INSTANCE_NAME)
 upgrade_instance "$public_ip"
 
 echo "Running OSA @ $public_ip..."
-rsync --recursive openstack-ansible root@$public_ip:/opt/
+
+ssh \
+    -o BatchMode=yes \
+    root@$public_ip 'mkdir /opt/openstack-ansible/'
+rsync --recursive openstack-ansible-stable/* root@$public_ip:/opt/openstack-ansible/
 ssh \
     -o BatchMode=yes \
     root@$public_ip 'bash -s' < $DIR/../install-osa.sh
+rsync --recursive openstack-ansible-master/* root@$public_ip:/opt/openstack-ansible/
 ssh \
     -o BatchMode=yes \
     root@$public_ip 'bash -s' < $DIR/../upgrade-osa.sh
