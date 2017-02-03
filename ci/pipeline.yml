@@ -97,7 +97,7 @@ jobs:
   - get: grenade
     trigger: true
   - task: deploy
-    timeout: 2h
+    timeout: 3h
     attempts: 1
     config:
       platform: linux
@@ -163,7 +163,7 @@ jobs:
   - get: openstack-ansible
     trigger: true
   - task: deploy
-    timeout: 2h
+    timeout: 3h
     attempts: 1
     config:
       platform: linux
