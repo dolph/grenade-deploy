@@ -142,7 +142,7 @@ function delete_instance {
 }
 
 function bootstrap_apachebench {
-    apt-get install -y ab
+    apt-get install -y apache2-utils
 }
 
 function measure_downtime {
