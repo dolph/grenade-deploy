@@ -17,6 +17,7 @@ source $DIR/common-functions.sh
 bootstrap
 bootstrap_ssh "$SSH_PUBLIC_KEY" "$SSH_PRIVATE_KEY_BODY"
 bootstrap_rack "$RACK_USERNAME" "$RACK_API_KEY" "$RACK_REGION"
+bootstrap_apachebench
 delete_instance "$INSTANCE_NAME"
 provision_instance "$INSTANCE_NAME" "$IMAGE_NAME" "8 GB Performance"
 
@@ -27,4 +28,5 @@ rsync --recursive grenade root@$public_ip:/opt/
 ssh \
     -o BatchMode=yes \
     root@$public_ip 'bash -s' < $DIR/../install-grenade.sh
+measure_downtime $public_ip
 delete_instance "$INSTANCE_NAME"

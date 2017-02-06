@@ -140,3 +140,24 @@ function delete_instance {
 
     rack servers instance delete --name="$instance_name" || true
 }
+
+function bootstrap_apachebench {
+    apt-get install -y ab
+}
+
+function measure_downtime {
+    public_ip=$1
+
+    endpoint=http://$public_ip/identity
+
+    # Wait until we can reach the endpoint before beginning:
+    while true; do
+        if curl $endpoint ; then
+            break
+        fi
+
+        sleep 1.0
+    done
+
+    ab -c 1 -t 60 -s 1 -r -m GET $endpoint # &> identity &
+}
