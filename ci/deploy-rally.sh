@@ -7,5 +7,9 @@ source $DIR/common-functions.sh
 
 bootstrap
 
-apt-get install -y wget git python-pip
+apt-get install -y \
+    wget \
+    git \
+    python-pip \
+    ;
 bash rally/install_rally.sh
