@@ -159,5 +159,5 @@ function measure_downtime {
         sleep 1.0
     done
 
-    ab -c 1 -t 60 -s 1 -r -m GET $endpoint # &> identity &
+    ab -c 1 -t 60 -r -m GET $endpoint # &> identity &
 }
