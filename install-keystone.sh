@@ -21,7 +21,7 @@ apt-get install -y \
     ;
 
 curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py \
-    | python
+    | python2.7
 
 pip install bindep tox
 BINDEP_PKGS=$(bindep -b -f bindep.txt test || true)
