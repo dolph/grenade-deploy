@@ -6,7 +6,7 @@ do
     apt-get update && break || sleep 15
 done
 
-apt-get install -y tox \
+apt-get install -y \
     build-essential \
     git-core \
     libssl-dev \
@@ -19,6 +19,14 @@ apt-get install -y tox \
     libxml2-dev \
     libxslt-dev \
     ;
+
+curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py \
+    | python
+
+pip install bindep tox
+BINDEP_PKGS=$(bindep -b -f bindep.txt test || true)
+DEBIAN_FRONTEND=noninteractive \
+    apt-get install $BINDEP_PKGS
 
 cd /opt/openstack-ansible
 export BOOTSTRAP_OPTS="bootstrap_host_ubuntu_repo=http://mirror.rackspace.com/ubuntu"
