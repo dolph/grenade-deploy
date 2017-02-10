@@ -8,9 +8,16 @@ done
 
 apt-get install -y tox \
     build-essential \
-    python-dev \
+    git-core \
     libssl-dev \
+    libffi-dev \
+    python2.7 \
+    python-dev \
+    python-ndg-httpsclient \
+    gzip \
     libpq-dev \
+    libxml2-dev \
+    libxslt-dev \
     ;
 
 cd /opt/openstack-ansible
