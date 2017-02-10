@@ -18,8 +18,8 @@ bootstrap_ssh "$SSH_PUBLIC_KEY" "$SSH_PRIVATE_KEY_BODY"
 bootstrap_rack "$RACK_USERNAME" "$RACK_API_KEY" "$RACK_REGION"
 delete_instance "$INSTANCE_NAME"
 provision_instance "$INSTANCE_NAME" "$IMAGE_NAME" "8 GB Performance"
-
 public_ip=$(get_public_ip $INSTANCE_NAME)
+upgrade_instance "$public_ip"
 
 echo "Running @ $public_ip..."
 rsync --recursive openstack-ansible-os_keystone root@$public_ip:/opt/
