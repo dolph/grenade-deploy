@@ -22,7 +22,6 @@ public_ip=$(get_public_ip $INSTANCE_NAME)
 upgrade_instance "$public_ip"
 
 echo "Running @ $public_ip..."
-rsync --recursive openstack-ansible root@$public_ip:/opt/
 rsync --recursive openstack-ansible-os_keystone root@$public_ip:/opt/
 ssh \
     -o BatchMode=yes \
