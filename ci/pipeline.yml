@@ -30,10 +30,10 @@ resources:
   source:
     uri: https://github.com/openstack/openstack-ansible.git
     branch: master
-- name: rally
+- name: openstack-ansible-os_keystone
   type: git
   source:
-    uri: https://github.com/openstack/rally.git
+    uri: https://github.com/openstack/openstack-ansible-os_keystone.git
     branch: master
 
 jobs:
@@ -264,7 +264,7 @@ jobs:
         - {{rack_api_key}}
         - {{rack_region}}
         - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-- name: rally-smoke
+- name: os_keystone-upgrade
   serial: true
   build_logs_to_retain: 3
   max_in_flight: 1
@@ -272,7 +272,7 @@ jobs:
   - get: pineapple
     passed: [smoke-test]
     trigger: true
-  - get: rally
+  - get: openstack-ansible-os_keystone
     trigger: true
   - task: deploy
     timeout: 3h
@@ -285,6 +285,13 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
-      - name: rally
+      - name: openstack-ansible-os_keystone
       run:
-        path: pineapple/ci/deploy-rally.sh
+        path: pineapple/ci/deploy-keystone.sh
+        args:
+        - {{ssh_public_key}}
+        - {{ssh_private_key_only}}
+        - {{rack_username}}
+        - {{rack_api_key}}
+        - {{rack_region}}
+        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
