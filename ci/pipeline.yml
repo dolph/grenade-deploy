@@ -35,6 +35,11 @@ resources:
   source:
     uri: https://github.com/openstack/openstack-ansible-os_keystone.git
     branch: master
+- name: keystone
+  type: git
+  source:
+    uri: https://github.com/openstack/keystone.git
+    branch: master
 
 jobs:
 - name: smoke-test
@@ -273,6 +278,8 @@ jobs:
     passed: [smoke-test]
     trigger: true
   - get: openstack-ansible-os_keystone
+    trigger: true
+  - get: keystone
     trigger: true
   - task: deploy
     timeout: 1h
