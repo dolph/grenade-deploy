@@ -15,15 +15,11 @@ apt-get install -y \
 curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py \
     | python2.7
 
+cd /opt/openstack-ansible-os_keystone
+
 # Install bindep to discover binary deps.
 pip install bindep tox
 export DEBIAN_FRONTEND=noninteractive
 apt-get install -y $(bindep -b -f bindep.txt test || true)
 
-cd /opt/openstack-ansible
-export BOOTSTRAP_OPTS="bootstrap_host_ubuntu_repo=http://mirror.rackspace.com/ubuntu"
-export ANSIBLE_ROLE_FETCH_MODE=git-clone
-bash scripts/bootstrap-ansible.sh
-
-cd /opt/openstack-ansible-os_keystone
 tox -e upgrade
