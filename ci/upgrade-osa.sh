@@ -24,7 +24,7 @@ provision_instance "$INSTANCE_NAME" "$IMAGE_NAME" "8 GB General Purpose v1"
 public_ip=$(get_public_ip $INSTANCE_NAME)
 upgrade_instance "$public_ip"
 
-echo "Running OSA @ $public_ip..."
+echo "Running @ $public_ip..."
 
 ssh \
     -o BatchMode=yes \

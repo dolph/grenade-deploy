@@ -23,7 +23,7 @@ provision_instance "$INSTANCE_NAME" "$IMAGE_NAME" "8 GB Performance"
 public_ip=$(get_public_ip $INSTANCE_NAME)
 private_ip=$(get_private_ip $INSTANCE_NAME)
 
-echo "Running devstack-lxc @ $public_ip..."
+echo "Running @ $public_ip..."
 rsync --recursive devstack-lxc root@$public_ip:/opt/
 ssh \
     -o BatchMode=yes \
