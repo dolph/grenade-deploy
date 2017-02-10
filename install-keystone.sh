@@ -7,6 +7,7 @@ do
 done
 
 apt-get install -y tox \
+    build-essential \
     python-dev \
     libssl-dev \
     libpq-dev \
