@@ -6,7 +6,7 @@ do
     apt-get update && break || sleep 15
 done
 
-apt-get install -y tox
+apt-get install -y tox libpq-dev
 
 cd /opt/openstack-ansible-os_keystone
 tox -e upgrade
