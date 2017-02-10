@@ -272,6 +272,8 @@ jobs:
   - get: pineapple
     passed: [smoke-test]
     trigger: true
+  - get: osa-master
+    trigger: true
   - get: openstack-ansible-os_keystone
     trigger: true
   - task: deploy
@@ -285,6 +287,8 @@ jobs:
           repository: phusion/baseimage
       inputs:
       - name: pineapple
+      - name: osa-master
+        path: openstack-ansible
       - name: openstack-ansible-os_keystone
       run:
         path: pineapple/ci/deploy-keystone.sh
