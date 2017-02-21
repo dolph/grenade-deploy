@@ -29,11 +29,11 @@ echo "Running @ $public_ip..."
 ssh \
     -o BatchMode=yes \
     root@$public_ip 'mkdir /opt/openstack-ansible/'
-rsync --recursive openstack-ansible-stable/* root@$public_ip:/opt/openstack-ansible/
+rsync --recursive osa-stable/* root@$public_ip:/opt/openstack-ansible/
 ssh \
     -o BatchMode=yes \
     root@$public_ip 'bash -s' < $DIR/../install-osa.sh
-rsync --recursive openstack-ansible-master/* root@$public_ip:/opt/openstack-ansible/
+rsync --recursive osa-master/* root@$public_ip:/opt/openstack-ansible/
 ssh \
     -o BatchMode=yes \
     root@$public_ip 'bash -s' < $DIR/../upgrade-osa.sh
