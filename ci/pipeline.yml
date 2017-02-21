@@ -212,7 +212,7 @@ jobs:
     trigger: true
   - task: deploy
     timeout: 3h
-    attempts: 1
+    attempts: 3
     config:
       platform: linux
       image_resource:
