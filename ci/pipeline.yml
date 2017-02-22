@@ -15,11 +15,6 @@ resources:
   source:
     uri: https://github.com/openstack-dev/grenade.git
     branch: master
-- name: devstack-lxc
-  type: git
-  source:
-    uri: https://github.com/osic/devstack-lxc.git
-    branch: multinode-vm-lxc
 - name: osa-stable
   type: git
   source:
@@ -125,41 +120,6 @@ jobs:
       - name: grenade
       run:
         path: pineapple/ci/deploy-grenade.sh
-        args:
-        - {{ssh_public_key}}
-        - {{ssh_private_key_only}}
-        - {{rack_username}}
-        - {{rack_api_key}}
-        - {{rack_region}}
-        - Ubuntu 16.04 LTS (Xenial Xerus) (PVHVM)
-- name: devstack-lxc
-  serial: true
-  build_logs_to_retain: 3
-  max_in_flight: 1
-  plan:
-  - get: pineapple
-    passed: [smoke-test, grenade]
-    trigger: true
-  - get: devstack-lxc
-    trigger: true
-  - get: grenade
-    passed: [grenade]
-    trigger: true
-  - task: deploy
-    timeout: 3h
-    attempts: 1
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: phusion/baseimage
-      inputs:
-      - name: pineapple
-      - name: devstack-lxc
-      - name: grenade
-      run:
-        path: pineapple/ci/deploy-devstack-lxc.sh
         args:
         - {{ssh_public_key}}
         - {{ssh_private_key_only}}
