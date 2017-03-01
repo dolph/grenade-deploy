@@ -19,6 +19,7 @@ bootstrap_ssh "$SSH_PUBLIC_KEY" "$SSH_PRIVATE_KEY_BODY"
 bootstrap_rack "$RACK_USERNAME" "$RACK_API_KEY" "$RACK_REGION"
 bootstrap_apachebench
 delete_instance "$INSTANCE_NAME"
+trap "delete_instance \"$INSTANCE_NAME\"" EXIT
 provision_instance "$INSTANCE_NAME" "$IMAGE_NAME" "8 GB Performance"
 
 public_ip=$(get_public_ip $INSTANCE_NAME)
